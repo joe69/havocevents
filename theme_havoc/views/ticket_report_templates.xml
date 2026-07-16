@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- PDF-Ticket: oben das Event-Artwork, darunter die Infos,
+         ein Ticket pro Seite. -->
+    <template id="havoc_full_page_ticket" inherit_id="event.event_report_template_full_page_ticket">
+
+        <!-- Artwork über den Ticket-Infos -->
+        <xpath expr="//div[hasclass('o_event_full_page_ticket_details')]" position="before">
+            <div style="text-align: center; page-break-inside: avoid; margin-bottom: 4mm;">
+                <img src="/theme_havoc/static/src/img/ticket_poster.jpg"
+                    style="max-width: 100%; max-height: 165mm;"
+                    alt="HAVOC Event"/>
+            </div>
+        </xpath>
+
+        <!-- Seitenumbruch nach jedem Ticket -->
+        <xpath expr="//div[hasclass('o_event_full_page_ticket_container')]" position="attributes">
+            <attribute name="style">page-break-after: always;</attribute>
+        </xpath>
+
+    </template>
+
+</odoo>
