@@ -50,8 +50,10 @@ header#top {
     background-color: #0a0a0a;
 }
 
+// Banner: 16:9 wie das Artwork, volle Breite, nichts abgeschnitten
 .th_hero {
-    min-height: 70vh;
+    aspect-ratio: 16 / 9;
+    min-height: auto !important;
     background-color: #0a0a0a;
 }
 
@@ -97,6 +99,13 @@ header#top {
             text-transform: uppercase;
             letter-spacing: .06em;
             color: #c41818;
+            font-weight: 600;
+        }
+
+        .th_day_crew {
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: #f2f2f2;
             font-weight: 600;
         }
 
@@ -162,14 +171,33 @@ header#top {
     background-color: #101010;
     border-top: 1px solid #2c2c2c;
 
-    .th_info_block {
-        border-left: 4px solid #c41818;
-        padding-left: 1rem;
+    h2 {
+        letter-spacing: .06em;
 
-        h5 {
-            text-transform: uppercase;
-            letter-spacing: .05em;
+        &::after {
+            content: '';
+            display: block;
+            width: 4rem;
+            height: 4px;
+            background-color: #c41818;
+            margin: 1rem auto 0;
         }
+    }
+
+    .th_location_name {
+        font-family: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
+        font-size: 2rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .04em;
+        color: #ffffff;
+    }
+
+    .th_location_addr {
+        font-size: 1.15rem;
+        color: #9a9a9a;
+        text-transform: uppercase;
+        letter-spacing: .06em;
     }
 }
 

@@ -11,7 +11,6 @@
             <t t-call="website.record_cover">
                 <t t-set="_record" t-value="event"/>
                 <t t-set="use_filters" t-value="True"/>
-                <t t-set="use_size" t-value="True"/>
                 <t t-set="additionnal_classes" t-value="'th_hero o_wevent_event_main_cover overflow-hidden'"/>
 
                 <div class="h-100"/>
@@ -49,6 +48,7 @@
                                 <div class="th_day_card p-4 h-100">
                                     <h3 class="h4 mb-2">Freitag :: Nightcraft [NL]</h3>
                                     <p class="th_day_genre mb-1">Raw &amp; Hardstyle Classics</p>
+                                    <p class="th_day_crew mb-1">+ HAVOC Crew</p>
                                     <p class="th_day_time mb-0">16:00 &#8211; 22:00 Uhr</p>
                                 </div>
                             </div>
@@ -56,6 +56,7 @@
                                 <div class="th_day_card p-4 h-100">
                                     <h3 class="h4 mb-2">Samstag :: Drokz [NL]</h3>
                                     <p class="th_day_genre mb-1">Hardcore, Early &amp; Millennium</p>
+                                    <p class="th_day_crew mb-1">+ HAVOC Crew</p>
                                     <p class="th_day_time mb-0">15:00 &#8211; 22:00 Uhr</p>
                                 </div>
                             </div>
@@ -108,27 +109,16 @@
                 </div>
             </section>
 
-            <!-- 4. Text & Infos: Beschreibung kommt vom Event (im Editor bearbeitbar) -->
-            <section class="th_infos py-5">
-                <div class="container">
-                    <div class="row g-5">
-                        <div class="col-12 col-lg-8">
-                            <div t-field="event.description" placeholder="Beschreibung, Line-up, Infos …"/>
-                        </div>
-                        <div class="col-12 col-lg-4">
-                            <div class="th_info_block mb-4">
-                                <h5>Datum &amp; Uhrzeit</h5>
-                                <t t-call="website_event.event_description_dates">
-                                    <t t-set="opt_event_dates_block" t-value="True"/>
-                                </t>
-                            </div>
-                            <div t-if="event.address_id" class="th_info_block">
-                                <h5>Location</h5>
-                                <div t-field="event.address_id" class="mb-1"/>
-                                <small class="d-block mb-2" t-field="event.address_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
-                                <a t-att-href="event._google_map_link()" target="_blank" class="btn btn-secondary btn-sm">Route planen</a>
-                            </div>
-                        </div>
+            <!-- 4. Location (im Website-Editor bearbeitbar) -->
+            <section class="th_infos text-center py-5">
+                <div class="oe_structure" id="oe_structure_theme_havoc_location">
+                    <div class="container">
+                        <h2 class="mb-4">Location</h2>
+                        <p class="th_location_name mb-1">Center West</p>
+                        <p class="th_location_addr mb-4">Weblinger Kreisverkehr &#8226; Graz</p>
+                        <a href="https://maps.app.goo.gl/CBAkT7trsTqquciA6" target="_blank" rel="noopener" class="btn btn-primary px-5">
+                            <i class="fa fa-map-marker me-2" role="img" aria-label="Karte"/>Route planen
+                        </a>
                     </div>
                 </div>
             </section>
