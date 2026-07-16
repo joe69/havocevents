@@ -14,12 +14,26 @@
                 <t t-set="use_size" t-value="True"/>
                 <t t-set="additionnal_classes" t-value="'th_hero o_wevent_event_main_cover overflow-hidden'"/>
 
-                <div class="container d-flex flex-column justify-content-end align-items-center text-center h-100 pt-5 pb-4">
-                    <!-- Headline nur für SEO/Screenreader — das Banner-Bild trägt den Text -->
-                    <h1 t-out="event.name" class="visually-hidden"/>
+                <div class="h-100"/>
+            </t>
+
+            <!-- 2. Fette Headline + Datum — unterhalb vom Banner -->
+            <section class="th_title text-center py-5">
+                <div class="container">
+                    <h1 t-field="event.name" placeholder="Event Title" class="th_hero_title display-1 text-white"/>
+                    <div class="th_hero_meta text-white my-3">
+                        <i class="fa fa-calendar me-2" role="img" aria-label="Datum"/>
+                        <t t-out="event.date_begin" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'dd.MM.'}"/>
+                        <t t-if="event.date_begin.date() != event.date_end.date()">
+                            &#8211; <t t-out="event.date_end" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'dd.MM.yyyy'}"/>
+                        </t>
+                        <t t-else="">
+                            <t t-out="event.date_begin" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'yyyy'}"/>
+                        </t>
+                    </div>
                     <a href="#tickets" class="btn btn-primary btn-lg px-5">Tickets</a>
                 </div>
-            </t>
+            </section>
 
             <!-- 3. Tickettypen -->
             <section id="tickets" class="th_tickets py-5">
