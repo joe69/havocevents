@@ -73,6 +73,39 @@ header#top {
     letter-spacing: .08em;
 }
 
+.th_welcome {
+    background-color: #0a0a0a;
+    border-bottom: 1px solid #2c2c2c;
+
+    .th_welcome_title {
+        color: #c41818;
+        letter-spacing: .06em;
+    }
+
+    .th_welcome_text {
+        max-width: 46rem;
+        font-size: 1.15rem;
+        color: #f2f2f2;
+    }
+
+    .th_day_card {
+        background-color: #141414;
+        border: 1px solid #2c2c2c;
+        border-top: 4px solid #c41818;
+
+        .th_day_genre {
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: #c41818;
+            font-weight: 600;
+        }
+
+        .th_day_time {
+            color: #9a9a9a;
+        }
+    }
+}
+
 .th_tickets {
     background-color: #0a0a0a;
 

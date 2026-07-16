@@ -31,7 +31,36 @@
                             <t t-out="event.date_begin" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'yyyy'}"/>
                         </t>
                     </div>
-                    <a href="#tickets" class="btn btn-primary btn-lg px-5">Tickets</a>
+                </div>
+            </section>
+
+            <!-- Welcome-Block (im Website-Editor bearbeitbar) -->
+            <section class="th_welcome text-center py-5">
+                <div class="oe_structure" id="oe_structure_theme_havoc_welcome">
+                    <div class="container">
+                        <h2 class="th_welcome_title mb-4">Welcome to the Tent of Torment</h2>
+                        <p class="th_welcome_text mx-auto mb-5">
+                            Für ein Wochenende verwandeln wir ein Zirkuszelt in eine Harddance Location.<br/>
+                            Ganze 13 Stunden Festivalfeeling verteilt auf 2 Tagesevents mitten in Graz
+                            inkl. namhafter Besetzung aus Holland und unserer HAVOC Crew.
+                        </p>
+                        <div class="row justify-content-center g-4">
+                            <div class="col-12 col-md-5">
+                                <div class="th_day_card p-4 h-100">
+                                    <h3 class="h4 mb-2">Freitag :: Nightcraft [NL]</h3>
+                                    <p class="th_day_genre mb-1">Raw &amp; Hardstyle Classics</p>
+                                    <p class="th_day_time mb-0">16:00 &#8211; 22:00 Uhr</p>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-5">
+                                <div class="th_day_card p-4 h-100">
+                                    <h3 class="h4 mb-2">Samstag :: Drokz [NL]</h3>
+                                    <p class="th_day_genre mb-1">Hardcore, Early &amp; Millennium</p>
+                                    <p class="th_day_time mb-0">15:00 &#8211; 22:00 Uhr</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
