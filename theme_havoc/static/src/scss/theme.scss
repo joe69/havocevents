@@ -50,10 +50,13 @@ header#top {
     background-color: #0a0a0a;
 }
 
-// Banner: 16:9 wie das Artwork, mittig mit Schwarz links/rechts, nichts abgeschnitten
+// Banner: 16:9 wie das Artwork, mittig mit Schwarz links/rechts, nichts abgeschnitten.
+// Höhe über padding-top (56.25% der eigenen Breite = 16:9) statt aspect-ratio,
+// damit der Cover-Container auch ohne Inhalt sicher Höhe bekommt.
 .th_hero {
-    aspect-ratio: 16 / 9;
-    min-height: auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding-top: 56.25%;
     background-color: #0a0a0a;
     max-width: 1320px;
     margin-left: auto;
@@ -102,13 +105,6 @@ header#top {
             text-transform: uppercase;
             letter-spacing: .06em;
             color: #c41818;
-            font-weight: 600;
-        }
-
-        .th_day_crew {
-            text-transform: uppercase;
-            letter-spacing: .06em;
-            color: #f2f2f2;
             font-weight: 600;
         }
 
