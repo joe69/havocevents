@@ -12,6 +12,7 @@
     ],
     'data': [
         'data/website.xml',
+        'views/homepage.xml',
     ],
     'assets': {
         'web._assets_primary_variables': [

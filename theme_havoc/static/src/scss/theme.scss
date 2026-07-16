@@ -43,6 +43,88 @@ header#top {
 }
 
 //------------------------------------------------------------------------------
+// One-Pager (Startseite): Banner → Headline → Tickets → Infos
+//------------------------------------------------------------------------------
+
+.th_onepager {
+    background-color: #0a0a0a;
+}
+
+.th_hero {
+    min-height: 85vh;
+    background-color: #0a0a0a;
+
+    .th_hero_title {
+        text-transform: uppercase;
+        letter-spacing: .04em;
+        font-size: clamp(3.5rem, 10vw, 8rem);
+        line-height: .95;
+        text-shadow: 0 2px 24px rgba(0, 0, 0, .8);
+    }
+
+    .th_hero_meta {
+        font-size: 1.25rem;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+    }
+}
+
+.th_tickets {
+    background-color: #0a0a0a;
+
+    h2 {
+        letter-spacing: .06em;
+
+        &::after {
+            content: '';
+            display: block;
+            width: 4rem;
+            height: 4px;
+            background-color: #c41818;
+            margin: 1rem auto 0;
+        }
+    }
+}
+
+.th_ticket_card {
+    background-color: #141414;
+    border: 1px solid #2c2c2c;
+    transition: border-color .15s ease, transform .15s ease;
+
+    &:hover {
+        border-color: #c41818;
+        transform: translateY(-3px);
+    }
+
+    .th_ticket_price {
+        font-family: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #c41818;
+        line-height: 1;
+    }
+
+    .text-muted {
+        color: #9a9a9a !important;
+    }
+}
+
+.th_infos {
+    background-color: #101010;
+    border-top: 1px solid #2c2c2c;
+
+    .th_info_block {
+        border-left: 4px solid #c41818;
+        padding-left: 1rem;
+
+        h5 {
+            text-transform: uppercase;
+            letter-spacing: .05em;
+        }
+    }
+}
+
+//------------------------------------------------------------------------------
 // Events — Liste (simpel: keine Filter-Sidebar, keine Suche, volle Breite)
 //------------------------------------------------------------------------------
 
@@ -89,12 +171,61 @@ header#top {
 }
 
 //------------------------------------------------------------------------------
-// Events — Detailseite / Ticketkauf
+// Events — Detailseite = der One-Pager (dunkel, Banner-Look)
 //------------------------------------------------------------------------------
 
 // Cover: dunkel halten, damit weiße Schrift immer lesbar ist
 .o_wevent_event_main_cover {
     background-color: #0a0a0a;
+}
+
+.o_wevent_event {
+    background-color: #0a0a0a;
+    color: #f2f2f2;
+
+    h1, h2, h3, h4, h5, h6,
+    .h1, .h2, .h3, .h4, .h5, .h6 {
+        color: #ffffff;
+    }
+
+    a:not(.btn) {
+        color: #ffffff;
+
+        &:hover {
+            color: #c41818;
+        }
+    }
+
+    // Breadcrumb / "Alle Events"-Rücklink weg — es gibt nur dieses eine Event
+    .breadcrumb {
+        display: none !important;
+    }
+
+    // Event-Untermenü (Intro / Ort / Anmeldung) dunkel
+    nav.navbar {
+        background-color: #0a0a0a !important;
+    }
+
+    // Karten & Sidebar-Blöcke dunkel mit dezenter Kante
+    .card,
+    .o_wevent_sidebar_block,
+    .o_wevent_bordered_block {
+        background-color: #141414;
+        border-color: #2c2c2c;
+        color: #f2f2f2;
+    }
+
+    hr {
+        border-color: #2c2c2c;
+    }
+
+    // Ticket-Block hervorheben: rote Kante, damit der Kauf sofort auffällt
+    .o_wevent_tickets,
+    #o_wevent_tickets {
+        border: 2px solid #c41818;
+        background-color: #141414;
+        padding: 1.5rem;
+    }
 }
 
 // Ticket-Bereich: der Kauf-Flow soll sofort ins Auge springen

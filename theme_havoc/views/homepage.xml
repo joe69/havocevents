@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- One-Pager: Banner → Headline → Tickets → Infos → Footer.
+     Wird vom Controller auf `/` mit dem nächsten veröffentlichten Event gerendert. -->
+<template id="homepage" name="Havoc One-Pager">
+    <t t-call="website.layout">
+        <div id="wrap" class="o_wevent_event js_event th_onepager d-flex flex-column">
+
+            <!-- 1. HERO / Banner: nutzt das Cover-Bild des Events (im Editor austauschbar) -->
+            <t t-call="website.record_cover">
+                <t t-set="_record" t-value="event"/>
+                <t t-set="use_filters" t-value="True"/>
+                <t t-set="use_size" t-value="True"/>
+                <t t-set="additionnal_classes" t-value="'th_hero o_wevent_event_main_cover overflow-hidden'"/>
+
+                <div class="container d-flex flex-column justify-content-center align-items-center text-center h-100 py-5">
+                    <!-- 2. Fette Headline -->
+                    <h1 t-field="event.name" placeholder="Event Title" class="th_hero_title display-1 text-white"/>
+                    <p t-field="event.subtitle" placeholder="Subtitle" class="lead text-white-50"/>
+                    <div class="th_hero_meta text-white mb-4">
+                        <span class="th_hero_date">
+                            <i class="fa fa-calendar me-2" role="img" aria-label="Datum"/>
+                            <t t-out="event.date_begin" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'dd.MM.'}"/>
+                            <t t-if="event.date_begin.date() != event.date_end.date()">
+                                &#8211; <t t-out="event.date_end" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'dd.MM.yyyy'}"/>
+                            </t>
+                            <t t-else="">
+                                <t t-out="event.date_begin" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'yyyy'}"/>
+                            </t>
+                        </span>
+                        <span t-if="event.address_id" class="ms-3">
+                            <i class="fa fa-map-marker me-2" role="img" aria-label="Ort"/>
+                            <span t-field="event.address_id" t-options='{"widget": "contact", "fields": ["city"], "no_marker": True}'/>
+                        </span>
+                    </div>
+                    <a href="#tickets" class="btn btn-primary btn-lg px-5">Tickets</a>
+                </div>
+            </t>
+
+            <!-- 3. Tickettypen -->
+            <section id="tickets" class="th_tickets py-5">
+                <div class="container">
+                    <h2 class="text-center mb-5">Tickets</h2>
+                    <t t-set="tickets" t-value="event.event_ticket_ids.filtered(lambda t: not t.is_expired)"/>
+                    <div t-if="tickets" class="row justify-content-center g-4 mb-4">
+                        <div t-foreach="tickets" t-as="ticket" class="col-12 col-md-6 col-lg-4">
+                            <div class="th_ticket_card h-100 d-flex flex-column p-4">
+                                <h3 t-field="ticket.name" class="h4"/>
+                                <div class="th_ticket_price my-3">
+                                    <t t-if="ticket.price">
+                                        <span t-out="ticket.price" t-options="{'widget': 'monetary', 'display_currency': ticket.currency_id}"/>
+                                    </t>
+                                    <t t-else="">Gratis</t>
+                                </div>
+                                <p t-if="ticket.description" t-field="ticket.description" class="text-muted small flex-grow-1"/>
+                                <div t-else="" class="flex-grow-1"/>
+                                <div t-if="ticket.seats_limited and not ticket.seats_available" class="alert alert-danger py-1 small mb-0 mt-3">
+                                    Ausverkauft
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Kauf-Button: öffnet das Standard-Odoo-Ticketmodal (Mengen wählen → Checkout) -->
+                    <div class="text-center">
+                        <t t-call="website_event.registration_template">
+                            <t t-set="cta_additional_classes">btn-lg px-5</t>
+                        </t>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Text & Infos: Beschreibung kommt vom Event (im Editor bearbeitbar) -->
+            <section class="th_infos py-5">
+                <div class="container">
+                    <div class="row g-5">
+                        <div class="col-12 col-lg-8">
+                            <div t-field="event.description" placeholder="Beschreibung, Line-up, Infos …"/>
+                        </div>
+                        <div class="col-12 col-lg-4">
+                            <div class="th_info_block mb-4">
+                                <h5>Datum &amp; Uhrzeit</h5>
+                                <t t-call="website_event.event_description_dates">
+                                    <t t-set="opt_event_dates_block" t-value="True"/>
+                                </t>
+                            </div>
+                            <div t-if="event.address_id" class="th_info_block">
+                                <h5>Location</h5>
+                                <div t-field="event.address_id" class="mb-1"/>
+                                <small class="d-block mb-2" t-field="event.address_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
+                                <a t-att-href="event._google_map_link()" target="_blank" class="btn btn-secondary btn-sm">Route planen</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ablagefläche für weitere Blöcke aus dem Website-Editor -->
+            <div class="oe_structure oe_empty" id="oe_structure_theme_havoc_home_1"/>
+        </div>
+
+        <!-- Standard-Odoo-Registrierungsmodal, damit der Ticketkauf hier direkt funktioniert -->
+        <t t-if="event.is_multi_slots" t-call="website_event.modal_slot_registration"/>
+        <t t-else="" t-call="website_event.modal_ticket_registration"/>
+    </t>
+</template>
+
+</odoo>
