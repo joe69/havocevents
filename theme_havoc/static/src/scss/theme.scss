@@ -154,6 +154,10 @@ header#top {
     border: 1px solid #2c2c2c;
     transition: border-color .15s ease, transform .15s ease;
 
+    &[role='button'] {
+        cursor: pointer;
+    }
+
     &:hover {
         border-color: #c41818;
         transform: translateY(-3px);

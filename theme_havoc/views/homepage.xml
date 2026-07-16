@@ -64,7 +64,11 @@
                     <t t-set="tickets" t-value="event.event_ticket_ids.filtered(lambda t: not t.is_expired)"/>
                     <div t-if="tickets" class="row justify-content-center g-4 mb-4">
                         <div t-foreach="tickets" t-as="ticket" class="col-12 col-md-6 col-lg-4">
-                            <div class="th_ticket_card h-100 d-flex flex-column p-4">
+                            <!-- Karte anklicken öffnet das Ticket-Popup (Mengenauswahl) -->
+                            <div class="th_ticket_card h-100 d-flex flex-column p-4"
+                                t-att-role="event.event_registrations_open and 'button' or None"
+                                t-att-data-bs-toggle="event.event_registrations_open and 'modal' or None"
+                                t-attf-data-bs-target="#modal_{{'slot' if event.is_multi_slots else 'ticket'}}_registration">
                                 <h3 t-field="ticket.name" class="h4"/>
                                 <div class="th_ticket_price my-3">
                                     <t t-if="ticket.price">
@@ -91,12 +95,7 @@
                                 Ausverkauft ist ausverkauft.
                             </p>
                         </div>
-                        <button t-if="event.event_registrations_open" type="button"
-                            data-bs-toggle="modal" class="btn btn-primary btn-lg px-5"
-                            t-attf-data-bs-target="#modal_{{'slot' if event.is_multi_slots else 'ticket'}}_registration">
-                            Tickets kaufen
-                        </button>
-                        <t t-else="" t-call="website_event.registration_template"/>
+                        <t t-if="not event.event_registrations_open" t-call="website_event.registration_template"/>
                     </div>
                 </div>
             </section>
