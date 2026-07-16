@@ -7,14 +7,12 @@
     <t t-call="website.layout">
         <div id="wrap" class="o_wevent_event js_event th_onepager d-flex flex-column">
 
-            <!-- 1. HERO / Banner: nutzt das Cover-Bild des Events (im Editor austauschbar) -->
-            <t t-call="website.record_cover">
-                <t t-set="_record" t-value="event"/>
-                <t t-set="use_filters" t-value="True"/>
-                <t t-set="additionnal_classes" t-value="'th_hero o_wevent_event_main_cover overflow-hidden'"/>
-
-                <div class="h-100"/>
-            </t>
+            <!-- 1. HERO / Banner: fixes Bild aus dem Modul (im Website-Editor austauschbar) -->
+            <section class="th_hero">
+                <div class="oe_structure" id="oe_structure_theme_havoc_banner">
+                    <img src="/theme_havoc/static/src/img/banner.jpg" class="th_hero_img" alt="HAVOC Event Banner"/>
+                </div>
+            </section>
 
             <!-- Headline nur für SEO/Screenreader — das Banner-Bild trägt den Text -->
             <h1 t-out="event.name" class="visually-hidden"/>

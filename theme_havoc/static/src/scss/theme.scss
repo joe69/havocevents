@@ -50,17 +50,19 @@ header#top {
     background-color: #0a0a0a;
 }
 
-// Banner: 16:9 wie das Artwork, mittig mit Schwarz links/rechts, nichts abgeschnitten.
-// Höhe über padding-top (56.25% der eigenen Breite = 16:9) statt aspect-ratio,
-// damit der Cover-Container auch ohne Inhalt sicher Höhe bekommt.
+// Banner: echtes <img>, Höhe kommt vom Bild selbst — mittig, Schwarz links/rechts
 .th_hero {
-    height: auto !important;
-    min-height: 0 !important;
-    padding-top: 56.25%;
     background-color: #0a0a0a;
-    max-width: 1320px;
-    margin-left: auto;
-    margin-right: auto;
+    text-align: center;
+
+    .th_hero_img,
+    img {
+        display: block;
+        width: 100%;
+        max-width: 1024px;
+        height: auto;
+        margin: 0 auto;
+    }
 }
 
 .th_hero_meta {
