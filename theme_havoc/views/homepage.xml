@@ -14,7 +14,7 @@
                 <t t-set="use_size" t-value="True"/>
                 <t t-set="additionnal_classes" t-value="'th_hero o_wevent_event_main_cover overflow-hidden'"/>
 
-                <div class="container d-flex flex-column justify-content-center align-items-center text-center h-100 py-5">
+                <div class="container d-flex flex-column justify-content-end align-items-center text-center h-100 pt-5 pb-4">
                     <!-- 2. Fette Headline -->
                     <h1 t-field="event.name" placeholder="Event Title" class="th_hero_title display-1 text-white"/>
                     <p t-field="event.subtitle" placeholder="Subtitle" class="lead text-white-50"/>
