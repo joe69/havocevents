@@ -50,11 +50,14 @@ header#top {
     background-color: #0a0a0a;
 }
 
-// Banner: 16:9 wie das Artwork, volle Breite, nichts abgeschnitten
+// Banner: 16:9 wie das Artwork, mittig mit Schwarz links/rechts, nichts abgeschnitten
 .th_hero {
     aspect-ratio: 16 / 9;
     min-height: auto !important;
     background-color: #0a0a0a;
+    max-width: 1320px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .th_title {
