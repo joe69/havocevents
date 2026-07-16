@@ -1,0 +1,25 @@
+//------------------------------------------------------------------------------
+// HAVOC — Bootstrap overrides (prepended: plain assignments win over !default)
+//------------------------------------------------------------------------------
+
+// Kantiger Look — keine Rundungen
+$border-radius: 0;
+$border-radius-sm: 0;
+$border-radius-lg: 0;
+$border-radius-xl: 0;
+$border-radius-xxl: 0;
+$border-radius-pill: 0;
+
+$card-border-radius: 0;
+$badge-border-radius: 0;
+$modal-content-border-radius: 0;
+$dropdown-border-radius: 0;
+$toast-border-radius: 0;
+$alert-border-radius: 0;
+$progress-border-radius: 0;
+
+// Buttons
+$btn-font-weight: 600;
+
+// Badges (z.B. Ticket-Kategorien)
+$badge-font-weight: 600;

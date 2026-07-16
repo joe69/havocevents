@@ -1,0 +1,115 @@
+//------------------------------------------------------------------------------
+// HAVOC — Frontend theme
+//------------------------------------------------------------------------------
+
+// Stencil-Look: Headings, Navigation und Buttons in Versalien
+h1, h2, h3, .h1, .h2, .h3,
+.display-1, .display-2, .display-3, .display-4 {
+    text-transform: uppercase;
+    letter-spacing: .02em;
+}
+
+.btn {
+    text-transform: uppercase;
+    letter-spacing: .06em;
+}
+
+header#top .navbar .nav-link {
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    font-weight: 600;
+}
+
+//------------------------------------------------------------------------------
+// Events — Liste
+//------------------------------------------------------------------------------
+
+// Event-Karten: kantig, klare Kante, roter Hover-Akzent
+.o_wevent_events_list {
+    article.card,
+    .card {
+        border-radius: 0;
+        border: 1px solid #000000;
+        transition: box-shadow .15s ease, border-color .15s ease;
+
+        &:hover {
+            border-color: #c41818;
+            box-shadow: 0 0 0 1px #c41818;
+        }
+    }
+}
+
+// Datums-Badge auf den Karten in Rot
+.o_wevent_event_date {
+    .o_wevent_event_month {
+        background-color: #c41818 !important;
+        color: #ffffff !important;
+    }
+    .o_wevent_event_day {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+    }
+}
+
+.o_wevent_badge {
+    border-radius: 0;
+}
+
+//------------------------------------------------------------------------------
+// Events — Detailseite / Ticketkauf
+//------------------------------------------------------------------------------
+
+// Cover: dunkel halten, damit weiße Schrift immer lesbar ist
+.o_wevent_event_main_cover {
+    background-color: #0a0a0a;
+}
+
+// Ticket-Bereich: der Kauf-Flow soll sofort ins Auge springen
+.o_wevent_tickets,
+#o_wevent_tickets {
+    .o_wevent_registration_title {
+        text-transform: uppercase;
+        letter-spacing: .03em;
+    }
+
+    // "Jetzt registrieren"-/Kauf-Button groß und rot
+    .btn-primary {
+        font-size: 1.15rem;
+        padding: .8rem 2.5rem;
+    }
+}
+
+// Ticket-Mengenauswahl kantig
+.o_wevent_input_nb_tickets {
+    border-radius: 0;
+}
+
+// Sidebar-Blöcke auf der Eventseite
+.o_wevent_sidebar_block {
+    border-radius: 0;
+
+    .o_wevent_sidebar_title {
+        text-transform: uppercase;
+        letter-spacing: .04em;
+        font-weight: 700;
+    }
+}
+
+.o_wevent_bordered_block {
+    border-radius: 0;
+    border-color: #000000;
+}
+
+//------------------------------------------------------------------------------
+// Shop / Checkout (website_sale — Ticketkauf-Abschluss)
+//------------------------------------------------------------------------------
+
+// Fortschrittsanzeige im Checkout in Schwarz/Rot statt Odoo-Blau
+.o_wizard_step_active {
+    color: #c41818;
+}
+
+// Karten im Warenkorb/Checkout kantig
+.oe_website_sale .card {
+    border-radius: 0;
+}
