@@ -37,9 +37,9 @@ $o-website-values-palettes: (
         'input-border-radius-sm':   0,
         'input-border-radius-lg':   0,
 
-        // Footer
-        'footer-template':      'default',
-        'footer-scrolltop':     true,
+        // Footer — nur eine schlanke Zeile
+        'footer-template':      'minimalist',
+        'footer-scrolltop':     false,
     ),
 );
 

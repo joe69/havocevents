@@ -10,6 +10,9 @@
     'depends': [
         'website_event_sale',
     ],
+    'data': [
+        'data/website.xml',
+    ],
     'assets': {
         'web._assets_primary_variables': [
             'theme_havoc/static/src/scss/primary_variables.scss',

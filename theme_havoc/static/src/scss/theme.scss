@@ -21,8 +21,41 @@ header#top .navbar .nav-link {
 }
 
 //------------------------------------------------------------------------------
-// Events — Liste
+// Simpler Header: kein Menü — nur Logo + Warenkorb
 //------------------------------------------------------------------------------
+
+header#top {
+    // Desktop: Menüpunkte ausblenden (ul bleibt für das Layout/me-auto erhalten)
+    ul#top_menu > li {
+        display: none !important;
+    }
+
+    // Extra-Elemente rechts: alles außer Warenkorb weg
+    // (Suche, Sprachwahl, Anmelden, User-Dropdown, CTA)
+    #o_main_nav > ul.navbar-nav:not(#top_menu) > *:not(.o_wsale_my_cart) {
+        display: none !important;
+    }
+
+    // Mobile: Hamburger + Offcanvas-Menü weg, Warenkorb-Icon bleibt sichtbar
+    .o_header_mobile button[data-bs-target="#top_menu_collapse_mobile"] {
+        display: none !important;
+    }
+}
+
+//------------------------------------------------------------------------------
+// Events — Liste (simpel: keine Filter-Sidebar, keine Suche, volle Breite)
+//------------------------------------------------------------------------------
+
+.o_wevent_index_sidebar,
+.o_wevent_index_offcanvas,
+.o_wevent_search {
+    display: none !important;
+}
+
+.o_wevent_index_main_col {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
 
 // Event-Karten: kantig, klare Kante, roter Hover-Akzent
 .o_wevent_events_list {

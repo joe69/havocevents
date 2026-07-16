@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Startseite direkt auf die Eventseite legen — die Website ist eine
+         reine Event-/Ticketseite ohne eigenes Menü. -->
+    <record id="website.default_website" model="website">
+        <field name="homepage_url">/event</field>
+    </record>
+
+</odoo>
