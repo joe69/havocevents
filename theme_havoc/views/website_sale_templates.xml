@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Leerer Warenkorb: Button führt zur Startseite (One-Pager) statt zu /shop -->
+    <template id="cart_lines_home_button" inherit_id="website_sale.cart_lines" name="Cart empty button to homepage">
+        <xpath expr="//a[@href='/shop']" position="replace">
+            <a href="/" class="btn btn-primary">Zu den Tickets</a>
+        </xpath>
+    </template>
+
+</odoo>
