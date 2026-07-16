@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.havoc.ticket.fee</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="website_sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <block id="website_payment_block" position="inside">
+                <setting id="havoc_ticket_fee_setting"
+                    string="Ticket-Verwaltungsgebühr"
+                    help="Prozentualer Aufschlag auf Event-Tickets im Warenkorb (Verwaltungsaufwand). 0 = keine Gebühr.">
+                    <div class="content-group">
+                        <div class="row mt8">
+                            <label for="havoc_ticket_fee_percent" class="col-lg-6 o_light_label"/>
+                            <field name="havoc_ticket_fee_percent" class="col-lg-2"/>
+                        </div>
+                    </div>
+                </setting>
+            </block>
+        </field>
+    </record>
+
+</odoo>
