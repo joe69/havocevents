@@ -16,24 +16,10 @@
                 <div class="h-100"/>
             </t>
 
-            <!-- 2. Fette Headline + Datum — unterhalb vom Banner -->
-            <section class="th_title text-center py-5">
-                <div class="container">
-                    <h1 t-field="event.name" placeholder="Event Title" class="th_hero_title display-1 text-white"/>
-                    <div class="th_hero_meta text-white my-3">
-                        <i class="fa fa-calendar me-2" role="img" aria-label="Datum"/>
-                        <t t-out="event.date_begin" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'dd.MM.'}"/>
-                        <t t-if="event.date_begin.date() != event.date_end.date()">
-                            &#8211; <t t-out="event.date_end" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'dd.MM.yyyy'}"/>
-                        </t>
-                        <t t-else="">
-                            <t t-out="event.date_begin" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'yyyy'}"/>
-                        </t>
-                    </div>
-                </div>
-            </section>
+            <!-- Headline nur für SEO/Screenreader — das Banner-Bild trägt den Text -->
+            <h1 t-out="event.name" class="visually-hidden"/>
 
-            <!-- Welcome-Block (im Website-Editor bearbeitbar) -->
+            <!-- 2. Welcome-Block (im Website-Editor bearbeitbar) -->
             <section class="th_welcome text-center py-5">
                 <div class="oe_structure" id="oe_structure_theme_havoc_welcome">
                     <div class="container">
@@ -43,6 +29,16 @@
                             Ganze 13 Stunden Festivalfeeling verteilt auf 2 Tagesevents mitten in Graz
                             inkl. namhafter Besetzung aus Holland und unserer HAVOC Crew.
                         </p>
+                        <div class="th_hero_meta text-white mb-5">
+                            <i class="fa fa-calendar me-2" role="img" aria-label="Datum"/>
+                            <t t-out="event.date_begin" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'dd.MM.'}"/>
+                            <t t-if="event.date_begin.date() != event.date_end.date()">
+                                &#8211; <t t-out="event.date_end" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'dd.MM.yyyy'}"/>
+                            </t>
+                            <t t-else="">
+                                <t t-out="event.date_begin" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'yyyy'}"/>
+                            </t>
+                        </div>
                         <div class="row justify-content-center g-4">
                             <div class="col-12 col-md-5">
                                 <div class="th_day_card p-4 h-100">
