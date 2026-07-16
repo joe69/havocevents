@@ -87,11 +87,23 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Kauf-Button: öffnet das Standard-Odoo-Ticketmodal (Mengen wählen → Checkout) -->
+                    <!-- Hinweis + Kauf-Button: öffnet das Standard-Odoo-Ticketmodal (Mengen wählen → Checkout) -->
                     <div class="text-center">
-                        <t t-call="website_event.registration_template">
-                            <t t-set="cta_additional_classes">btn-lg px-5</t>
-                        </t>
+                        <div class="oe_structure" id="oe_structure_theme_havoc_ticket_note">
+                            <p class="th_ticket_note mx-auto mb-4">
+                                <strong>Die Tickets sind stark limitiert &#8211; weitere Kapazitäten können wir nicht schaffen!</strong><br/>
+                                Es gibt jeweils ein Tagesticket für Freitag und Samstag &#8211;
+                                oder das Wochenend-Ticket für beide Tage.
+                                Sichere dir deine Tickets so schnell wie möglich:
+                                Ausverkauft ist ausverkauft.
+                            </p>
+                        </div>
+                        <button t-if="event.event_registrations_open" type="button"
+                            data-bs-toggle="modal" class="btn btn-primary btn-lg px-5"
+                            t-attf-data-bs-target="#modal_{{'slot' if event.is_multi_slots else 'ticket'}}_registration">
+                            Tickets kaufen
+                        </button>
+                        <t t-else="" t-call="website_event.registration_template"/>
                     </div>
                 </div>
             </section>

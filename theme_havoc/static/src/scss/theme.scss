@@ -146,6 +146,18 @@ header#top {
     }
 }
 
+.th_ticket_note {
+    max-width: 40rem;
+    font-size: 1.15rem;
+    color: #f2f2f2;
+
+    strong {
+        color: #c41818;
+        text-transform: uppercase;
+        letter-spacing: .04em;
+    }
+}
+
 .th_infos {
     background-color: #101010;
     border-top: 1px solid #2c2c2c;
