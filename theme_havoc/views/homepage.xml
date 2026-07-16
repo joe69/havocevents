@@ -15,25 +15,8 @@
                 <t t-set="additionnal_classes" t-value="'th_hero o_wevent_event_main_cover overflow-hidden'"/>
 
                 <div class="container d-flex flex-column justify-content-end align-items-center text-center h-100 pt-5 pb-4">
-                    <!-- 2. Fette Headline -->
-                    <h1 t-field="event.name" placeholder="Event Title" class="th_hero_title display-1 text-white"/>
-                    <p t-field="event.subtitle" placeholder="Subtitle" class="lead text-white-50"/>
-                    <div class="th_hero_meta text-white mb-4">
-                        <span class="th_hero_date">
-                            <i class="fa fa-calendar me-2" role="img" aria-label="Datum"/>
-                            <t t-out="event.date_begin" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'dd.MM.'}"/>
-                            <t t-if="event.date_begin.date() != event.date_end.date()">
-                                &#8211; <t t-out="event.date_end" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'dd.MM.yyyy'}"/>
-                            </t>
-                            <t t-else="">
-                                <t t-out="event.date_begin" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'yyyy'}"/>
-                            </t>
-                        </span>
-                        <span t-if="event.address_id" class="ms-3">
-                            <i class="fa fa-map-marker me-2" role="img" aria-label="Ort"/>
-                            <span t-field="event.address_id" t-options='{"widget": "contact", "fields": ["city"], "no_marker": True}'/>
-                        </span>
-                    </div>
+                    <!-- Headline nur für SEO/Screenreader — das Banner-Bild trägt den Text -->
+                    <h1 t-out="event.name" class="visually-hidden"/>
                     <a href="#tickets" class="btn btn-primary btn-lg px-5">Tickets</a>
                 </div>
             </t>
