@@ -43,13 +43,6 @@
         </t>
     </template>
 
-    <record id="page_impressum" model="website.page">
-        <field name="name">Impressum</field>
-        <field name="url">/impressum</field>
-        <field name="view_id" ref="impressum_page"/>
-        <field name="is_published" eval="True"/>
-    </record>
-
     <!-- Impressum-Link inline in der Copyright-Zeile, mit Trenner -->
     <template id="footer_impressum_link" inherit_id="website.layout" name="Footer Impressum Link">
         <xpath expr="//div[hasclass('o_footer_copyright')]//div[hasclass('col-sm')]" position="inside">

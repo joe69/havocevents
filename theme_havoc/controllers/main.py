@@ -29,3 +29,7 @@ class HavocWebsite(Website):
             'website_visitor_timezone': request.env['website.visitor']._get_visitor_timezone(),
         }
         return request.render('theme_havoc.homepage', values)
+
+    @http.route('/impressum', auth='public', website=True, sitemap=True)
+    def impressum(self, **kw):
+        return request.render('theme_havoc.impressum_page')
