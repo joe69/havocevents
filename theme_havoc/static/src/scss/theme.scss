@@ -399,6 +399,23 @@ body {
     --bs-list-group-color: #f2f2f2;
     --bs-list-group-border-color: #2c2c2c;
 
+    // Odoo 19 kompiliert Bootstrap OHNE "bs-"-Präfix — dieselben Variablen nochmal unpräfixiert
+    --body-bg: #0a0a0a;
+    --body-bg-rgb: 10, 10, 10;
+    --body-color: #f2f2f2;
+    --body-color-rgb: 242, 242, 242;
+    --border-color: #2c2c2c;
+    --o-border-color: #2c2c2c;
+    --emphasis-color: #ffffff;
+    --secondary-bg: #141414;
+    --secondary-bg-rgb: 20, 20, 20;
+    --secondary-color: rgba(242, 242, 242, .7);
+    --tertiary-bg: #141414;
+    --tertiary-bg-rgb: 20, 20, 20;
+    --tertiary-color: rgba(242, 242, 242, .6);
+    --white-rgb: 20, 20, 20;
+    --light-rgb: 20, 20, 20;
+
     background-color: #0a0a0a;
     color: #f2f2f2;
 
@@ -416,14 +433,23 @@ body {
 
     .card,
     .o_total_card {
+        // Kartenvariablen sitzen am Element selbst (--card-bg: #fff) — hier überschreiben
+        --card-bg: #141414;
+        --card-color: #f2f2f2;
+        --card-border-color: #2c2c2c;
+        --card-cap-bg: #1e1e1e;
         border-radius: 0;
-        background-color: #141414;
+        background-color: #141414 !important;
         border-color: #2c2c2c;
+        color: #f2f2f2;
     }
 
     // Zahlungsmethoden-Auswahl (Karte / PayPal / EPS / Klarna)
     .list-group-item {
-        background-color: #141414;
+        --list-group-bg: #141414;
+        --list-group-color: #f2f2f2;
+        --list-group-border-color: #2c2c2c;
+        background-color: #141414 !important;
         color: #f2f2f2;
         border-color: #2c2c2c;
     }
