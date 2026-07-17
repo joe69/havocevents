@@ -14,6 +14,7 @@
         'data/website.xml',
         'views/homepage.xml',
         'views/website_sale_templates.xml',
+        'views/impressum.xml',
     ],
     'assets': {
         'web._assets_primary_variables': [
