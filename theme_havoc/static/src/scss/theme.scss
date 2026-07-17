@@ -363,15 +363,113 @@ header#top {
 }
 
 //------------------------------------------------------------------------------
-// Shop / Checkout (website_sale — Ticketkauf-Abschluss)
+// Shop / Checkout (website_sale) — kompletter Kauf-Flow im dunklen HAVOC-Look:
+// Warenkorb, Adresse, Zahlung, Bestellbestätigung
 //------------------------------------------------------------------------------
 
-// Fortschrittsanzeige im Checkout in Schwarz/Rot statt Odoo-Blau
+// Fortschrittsanzeige im Checkout in Rot statt Odoo-Blau
 .o_wizard_step_active {
-    color: #c41818;
+    color: #c41818 !important;
 }
 
-// Karten im Warenkorb/Checkout kantig
-.oe_website_sale .card {
-    border-radius: 0;
+.oe_website_sale {
+    // Bootstrap-5.3-Variablen: färben Karten, Tabellen und Inputs im Flow dunkel
+    --bs-body-bg: #0a0a0a;
+    --bs-body-color: #f2f2f2;
+    --bs-border-color: #2c2c2c;
+    --bs-emphasis-color: #ffffff;
+    --bs-secondary-color: rgba(242, 242, 242, .7);
+    --bs-tertiary-bg: #141414;
+    --bs-tertiary-color: rgba(242, 242, 242, .6);
+
+    background-color: #0a0a0a;
+    color: #f2f2f2;
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #ffffff;
+    }
+
+    a:not(.btn) {
+        color: #ffffff;
+
+        &:hover {
+            color: #c41818;
+        }
+    }
+
+    .card {
+        border-radius: 0;
+        background-color: #141414;
+        border-color: #2c2c2c;
+    }
+
+    .bg-white, .bg-light, .bg-100, .bg-200 {
+        background-color: #141414 !important;
+    }
+
+    .text-muted, .text-600, .text-700 {
+        color: #9a9a9a !important;
+    }
+
+    .border, .border-top, .border-bottom, .border-start, .border-end {
+        border-color: #2c2c2c !important;
+    }
+
+    hr {
+        border-color: #2c2c2c;
+    }
+
+    table, .table {
+        color: #f2f2f2;
+        --bs-table-bg: transparent;
+        --bs-table-color: #f2f2f2;
+        --bs-table-border-color: #2c2c2c;
+    }
+
+    // Helle Buttons (Drucken, Kalender) → dunkle Ghost-Buttons mit rotem Hover
+    .btn-light, .btn-outline-secondary {
+        --bs-btn-bg: #141414;
+        --bs-btn-color: #f2f2f2;
+        --bs-btn-border-color: #2c2c2c;
+        --bs-btn-hover-bg: #1e1e1e;
+        --bs-btn-hover-color: #ffffff;
+        --bs-btn-hover-border-color: #c41818;
+        --bs-btn-active-bg: #1e1e1e;
+        --bs-btn-active-color: #ffffff;
+    }
+
+    // Formulare (Adresse, Gutschein): dunkle Inputs, roter Fokus
+    .form-control, .form-select {
+        background-color: #141414;
+        border-color: #2c2c2c;
+        color: #f2f2f2;
+
+        &::placeholder {
+            color: #777777;
+        }
+
+        &:focus {
+            background-color: #141414;
+            color: #ffffff;
+            border-color: #c41818;
+            box-shadow: none;
+        }
+    }
+
+    .form-check-input {
+        background-color: #141414;
+        border-color: #2c2c2c;
+
+        &:checked {
+            background-color: #c41818;
+            border-color: #c41818;
+        }
+    }
+
+    // Erfolgsmeldung ("Ihre Zahlung wurde verarbeitet") dezent dunkelgrün
+    .alert-success {
+        background-color: #10210f;
+        border-color: #1e4620;
+        color: #9fd6a0;
+    }
 }
