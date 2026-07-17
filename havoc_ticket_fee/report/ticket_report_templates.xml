@@ -15,7 +15,7 @@
         </xpath>
 
         <!-- Seitenumbruch nach jedem Ticket -->
-        <xpath expr="//div[hasclass('o_event_full_page_ticket_container')]" position="attributes">
+        <xpath expr="//div[hasclass('o_event_full_page_ticket_wrapper')]" position="attributes">
             <attribute name="style">page-break-after: always;</attribute>
         </xpath>
 
