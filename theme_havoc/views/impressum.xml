@@ -45,8 +45,8 @@
 
     <!-- Impressum-Link inline in der Copyright-Zeile, mit Trenner -->
     <template id="footer_impressum_link" inherit_id="website.layout" name="Footer Impressum Link">
-        <xpath expr="//footer//span[hasclass('o_footer_copyright_name')]" position="after">
-            <span class="mx-1 small">|</span><a href="/impressum" class="small">Impressum</a>
+        <xpath expr="//footer//span[hasclass('o_footer_copyright_name')]" position="inside">
+            <span class="mx-1">|</span><a href="/impressum">Impressum</a>
         </xpath>
     </template>
 
