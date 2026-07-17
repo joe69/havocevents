@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="report_template">
+    <t t-call="web.html_container">
+        <t t-call="web.external_layout">
+            <div class="page" style="font-size: 12px;">
+
+                <h2 style="margin-bottom: 2px;">Steuerbericht</h2>
+                <p style="margin-bottom: 10px;">
+                    <strong t-out="company.name"/> &#8226;
+                    Zeitraum: <strong t-out="date_from" t-options='{"widget": "date"}'/>
+                    bis <strong t-out="date_to" t-options='{"widget": "date"}'/>
+                </p>
+
+                <!-- 1. Umsatz nach Verkaufskanal -->
+                <h5 style="margin-bottom: 4px;">Umsatz nach Verkaufskanal</h5>
+                <table class="table table-sm" style="margin-bottom: 12px;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #000;">
+                            <th>Kanal</th>
+                            <th class="text-end">Bestellungen</th>
+                            <th class="text-end">Netto</th>
+                            <th class="text-end">USt</th>
+                            <th class="text-end">Brutto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="channels" t-as="channel">
+                            <td t-out="channel[0]"/>
+                            <td class="text-end" t-out="channel[1]['count']"/>
+                            <td class="text-end" t-out="channel[1]['untaxed']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                            <td class="text-end" t-out="channel[1]['tax']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                            <td class="text-end" t-out="channel[1]['total']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                        </tr>
+                        <tr style="border-top: 2px solid #000; font-weight: bold;">
+                            <td>Gesamt</td>
+                            <td class="text-end" t-out="total['count']"/>
+                            <td class="text-end" t-out="total['untaxed']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                            <td class="text-end" t-out="total['tax']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                            <td class="text-end" t-out="total['total']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- 2. Umsatz je Tickettyp -->
+                <h5 style="margin-bottom: 4px;">Umsatz je Tickettyp</h5>
+                <table class="table table-sm" style="margin-bottom: 12px;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #000;">
+                            <th>Ticket</th>
+                            <th class="text-end">Stück</th>
+                            <th class="text-end">Netto</th>
+                            <th class="text-end">Brutto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="ticket_rows" t-as="ticket">
+                            <td t-out="ticket['name']"/>
+                            <td class="text-end" t-out="int(ticket['qty'])"/>
+                            <td class="text-end" t-out="ticket['untaxed']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                            <td class="text-end" t-out="ticket['total']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                        </tr>
+                        <tr t-if="not ticket_rows">
+                            <td colspan="4"><em>Keine Ticketverkäufe im Zeitraum.</em></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- 3. Steuern nach Satz (UVA) -->
+                <h5 style="margin-bottom: 4px;">Umsatzsteuer nach Satz (Basis: gebuchte Belege)</h5>
+                <table class="table table-sm" style="margin-bottom: 12px;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #000;">
+                            <th>Steuer</th>
+                            <th class="text-end">Satz</th>
+                            <th class="text-end">Bemessungsgrundlage</th>
+                            <th class="text-end">Steuerbetrag</th>
+                            <th class="text-end">UVA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="tax_rows" t-as="tax">
+                            <td t-out="tax['name']"/>
+                            <td class="text-end"><t t-out="'%g' % tax['percent']"/> %</td>
+                            <td class="text-end" t-out="tax['base']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                            <td class="text-end" t-out="tax['amount']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                            <td class="text-end" t-out="tax['kz']"/>
+                        </tr>
+                        <tr t-if="not tax_rows">
+                            <td colspan="5"><em>Keine gebuchten Belege im Zeitraum — Rechnungen buchen bzw. POS-Sitzungen schließen.</em></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- 4. Zahlarten (zum Abgleich) -->
+                <h5 style="margin-bottom: 4px;">Zahlarten (zum Abgleich mit Anbieter-Auszahlungen / Kassa)</h5>
+                <table class="table table-sm" style="margin-bottom: 8px;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #000;">
+                            <th>Zahlart</th>
+                            <th class="text-end">Zahlungen</th>
+                            <th class="text-end">Betrag</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="online_rows" t-as="pay">
+                            <td>Online — <t t-out="pay['name']"/></td>
+                            <td class="text-end" t-out="pay['count']"/>
+                            <td class="text-end" t-out="pay['amount']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                        </tr>
+                        <tr t-foreach="pos_pay_rows" t-as="pay">
+                            <td>POS — <t t-out="pay['name']"/></td>
+                            <td class="text-end" t-out="pay['count']"/>
+                            <td class="text-end" t-out="pay['amount']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                        </tr>
+                        <tr t-if="not online_rows and not pos_pay_rows">
+                            <td colspan="3"><em>Keine Zahlungen im Zeitraum.</em></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p style="font-size: 10px; color: #666;">
+                    Kanalumsätze basieren auf bestätigten Aufträgen/POS-Bestellungen, die
+                    USt-Tabelle auf gebuchten Belegen der Verkaufsjournale — kleine Abweichungen
+                    (noch nicht abgerechnete Aufträge, Gutschriften) sind möglich. UVA-Kennzahlen:
+                    KZ 022 (20&#160;%), KZ 006 (13&#160;%), KZ 029 (10&#160;%); Gesamtbetrag der
+                    Bemessungsgrundlagen = KZ 000. Ersetzt keine steuerliche Beratung.
+                </p>
+
+            </div>
+        </t>
+    </t>
+</template>
+
+</odoo>

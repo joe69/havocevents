@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_havoc_tax_report" model="ir.actions.report">
+        <field name="name">Mama Steuern — Steuerbericht</field>
+        <field name="model">havoc.tax.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">havoc_tax_report.report_template</field>
+        <field name="report_file">havoc_tax_report.report_template</field>
+        <field name="print_report_name">'Steuerbericht %s bis %s' % (object.date_from, object.date_to)</field>
+    </record>
+
+</odoo>
