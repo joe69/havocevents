@@ -73,11 +73,14 @@ class HavocTaxReport(models.AbstractModel):
             ticket = line.event_ticket_id
             entry = tickets.setdefault(ticket.id, {
                 'name': '%s — %s' % (ticket.event_id.name, ticket.name),
-                'qty': 0.0, 'untaxed': 0.0, 'total': 0.0,
+                'qty': 0.0, 'untaxed': 0.0, 'tax': 0.0, 'total': 0.0,
             })
             entry['qty'] += line.product_uom_qty
             entry['untaxed'] += line.price_subtotal
             entry['total'] += line.price_total
+        for entry in tickets.values():
+            # USt als Differenz Brutto − Netto, damit die Zeile exakt aufgeht
+            entry['tax'] = currency.round(entry['total'] - entry['untaxed'])
         ticket_rows = sorted(tickets.values(), key=lambda t: -t['total'])
 
         # ------------------------------------------------------------------

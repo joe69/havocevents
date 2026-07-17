@@ -51,6 +51,7 @@
                             <th>Ticket</th>
                             <th class="text-end">Stück</th>
                             <th class="text-end">Netto</th>
+                            <th class="text-end">USt</th>
                             <th class="text-end">Brutto</th>
                         </tr>
                     </thead>
@@ -59,10 +60,11 @@
                             <td t-out="ticket['name']"/>
                             <td class="text-end" t-out="int(ticket['qty'])"/>
                             <td class="text-end" t-out="ticket['untaxed']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                            <td class="text-end" t-out="ticket['tax']" t-options='{"widget": "monetary", "display_currency": currency}'/>
                             <td class="text-end" t-out="ticket['total']" t-options='{"widget": "monetary", "display_currency": currency}'/>
                         </tr>
                         <tr t-if="not ticket_rows">
-                            <td colspan="4"><em>Keine Ticketverkäufe im Zeitraum.</em></td>
+                            <td colspan="5"><em>Keine Ticketverkäufe im Zeitraum.</em></td>
                         </tr>
                     </tbody>
                 </table>
