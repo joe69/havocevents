@@ -7,6 +7,13 @@ class SaleOrderLine(models.Model):
 
     is_havoc_fee = fields.Boolean(string='Ist Verwaltungsgebühr', default=False)
 
+    def _compute_price_unit(self):
+        """Gebührenzeilen vom Preislisten-Neuberechnen ausnehmen — der Betrag
+        wird ausschließlich von _havoc_update_fee_line() gesetzt (analog zu
+        Versandkostenzeilen in `delivery`)."""
+        fee_lines = self.filtered('is_havoc_fee')
+        super(SaleOrderLine, self - fee_lines)._compute_price_unit()
+
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
