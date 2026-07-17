@@ -8,7 +8,7 @@
         <!-- Artwork über den Ticket-Infos -->
         <xpath expr="//div[hasclass('o_event_full_page_ticket_details')]" position="before">
             <div style="text-align: center; page-break-inside: avoid; margin-bottom: 4mm;">
-                <img src="/theme_havoc/static/src/img/ticket_poster.jpg"
+                <img src="/havoc_ticket_fee/static/img/ticket_poster.jpg"
                     style="max-width: 100%; max-height: 165mm;"
                     alt="HAVOC Event"/>
             </div>

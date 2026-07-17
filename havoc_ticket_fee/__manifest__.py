@@ -14,5 +14,6 @@
     'data': [
         'data/product_data.xml',
         'views/res_config_settings_views.xml',
+        'report/ticket_report_templates.xml',
     ],
 }
