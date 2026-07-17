@@ -459,6 +459,25 @@ body {
         color: #f2f2f2 !important;
     }
 
+    // Odoo-Farbkombos: cc1 (weiß) und cc2 (hellgrau aus der Palette) werden
+    // im Checkout für Bestellübersicht/Adressblock verwendet → dunkel zwingen
+    .o_cc1, .o_cc2 {
+        background-color: #141414 !important;
+        color: #f2f2f2 !important;
+
+        h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+            color: #ffffff !important;
+        }
+
+        a:not(.btn) {
+            color: #ffffff;
+
+            &:hover {
+                color: #c41818;
+            }
+        }
+    }
+
     .bg-white, .bg-light, .bg-100, .bg-200,
     .bg-body, .bg-body-secondary, .bg-body-tertiary {
         background-color: #141414 !important;
