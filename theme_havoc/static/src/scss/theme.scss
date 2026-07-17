@@ -380,12 +380,24 @@ body {
 #wrapwrap {
     // Bootstrap-5.3-Variablen: färben Karten, Tabellen und Inputs dunkel
     --bs-body-bg: #0a0a0a;
+    --bs-body-bg-rgb: 10, 10, 10;
     --bs-body-color: #f2f2f2;
+    --bs-body-color-rgb: 242, 242, 242;
     --bs-border-color: #2c2c2c;
     --bs-emphasis-color: #ffffff;
+    --bs-secondary-bg: #141414;
+    --bs-secondary-bg-rgb: 20, 20, 20;
     --bs-secondary-color: rgba(242, 242, 242, .7);
     --bs-tertiary-bg: #141414;
+    --bs-tertiary-bg-rgb: 20, 20, 20;
     --bs-tertiary-color: rgba(242, 242, 242, .6);
+    --bs-white-rgb: 20, 20, 20;
+    --bs-card-bg: #141414;
+    --bs-card-color: #f2f2f2;
+    --bs-card-border-color: #2c2c2c;
+    --bs-list-group-bg: #141414;
+    --bs-list-group-color: #f2f2f2;
+    --bs-list-group-border-color: #2c2c2c;
 
     background-color: #0a0a0a;
     color: #f2f2f2;
@@ -421,8 +433,10 @@ body {
         color: #f2f2f2 !important;
     }
 
-    .bg-white, .bg-light, .bg-100, .bg-200 {
+    .bg-white, .bg-light, .bg-100, .bg-200,
+    .bg-body, .bg-body-secondary, .bg-body-tertiary {
         background-color: #141414 !important;
+        color: #f2f2f2;
     }
 
     .text-muted, .text-600, .text-700 {
