@@ -459,6 +459,12 @@ body {
         color: #f2f2f2 !important;
     }
 
+    // Paletten-Hintergrund-Utilities (weiß/hellgrau) → dunkel zwingen
+    .bg-o-color-3, .bg-o-color-4 {
+        background-color: #141414 !important;
+        color: #f2f2f2 !important;
+    }
+
     // Odoo-Farbkombos: cc1 (weiß) und cc2 (hellgrau aus der Palette) werden
     // im Checkout für Bestellübersicht/Adressblock verwendet → dunkel zwingen
     .o_cc1, .o_cc2 {
