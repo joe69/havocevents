@@ -431,6 +431,15 @@ body {
         }
     }
 
+    // Der Build am Server legt über .card-body eine 90%-weiße Fläche
+    // (rgba(255,255,255,.9)) — das war das "Hellgrau" im Checkout
+    .card-body {
+        --background-color: transparent;
+        --color: #f2f2f2;
+        background-color: transparent !important;
+        color: #f2f2f2 !important;
+    }
+
     .card,
     .o_total_card {
         // Kartenvariablen sitzen am Element selbst (--card-bg: #fff) — hier überschreiben
