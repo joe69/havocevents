@@ -68,7 +68,11 @@
                 </table>
 
                 <!-- 3. Steuern nach Satz (UVA) -->
-                <h5 style="margin-bottom: 4px;">Umsatzsteuer nach Satz (Basis: gebuchte Belege)</h5>
+                <h5 style="margin-bottom: 4px;">
+                    Umsatzsteuer nach Satz
+                    <t t-if="tax_rows_from_orders">(Vorschau aus bestätigten Aufträgen &#8212; noch nicht gebucht!)</t>
+                    <t t-else="">(Basis: gebuchte Belege)</t>
+                </h5>
                 <table class="table table-sm" style="margin-bottom: 12px;">
                     <thead>
                         <tr style="border-bottom: 2px solid #000;">
@@ -88,7 +92,7 @@
                             <td class="text-end" t-out="tax['kz']"/>
                         </tr>
                         <tr t-if="not tax_rows">
-                            <td colspan="5"><em>Keine gebuchten Belege im Zeitraum — Rechnungen buchen bzw. POS-Sitzungen schließen.</em></td>
+                            <td colspan="5"><em>Keine Umsätze im Zeitraum.</em></td>
                         </tr>
                     </tbody>
                 </table>

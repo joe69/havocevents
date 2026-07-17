@@ -112,6 +112,25 @@ class HavocTaxReport(models.AbstractModel):
             (dict(t, kz=uva_kz.get(t['percent'], '')) for t in taxes.values()),
             key=lambda t: -t['percent'])
 
+        # Fallback: solange noch keine Belege gebucht sind, USt-Aufschlüsselung
+        # aus den bestätigten Aufträgen rechnen (als Vorschau gekennzeichnet)
+        tax_rows_from_orders = False
+        if not tax_rows:
+            tax_rows_from_orders = True
+            order_taxes = {}
+            for line in orders.order_line:
+                for tax in line.tax_id:
+                    entry = order_taxes.setdefault(tax.id, {
+                        'name': tax.name, 'percent': tax.amount,
+                        'base': 0.0, 'amount': 0.0,
+                    })
+                    entry['base'] += line.price_subtotal
+                    entry['amount'] += line.price_tax
+            tax_rows = sorted(
+                (dict(t, kz=uva_kz.get(t['percent'], ''))
+                 for t in order_taxes.values()),
+                key=lambda t: -t['percent'])
+
         # ------------------------------------------------------------------
         # Zahlarten — Online (Zahlungsanbieter) und POS (Zahlungsmethoden),
         # zum Abgleich mit den Auszahlungen der Anbieter / der Kassa
@@ -158,6 +177,7 @@ class HavocTaxReport(models.AbstractModel):
             'total': total,
             'ticket_rows': ticket_rows,
             'tax_rows': tax_rows,
+            'tax_rows_from_orders': tax_rows_from_orders,
             'online_rows': online_rows,
             'pos_pay_rows': pos_pay_rows,
         }
