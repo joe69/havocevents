@@ -13,7 +13,8 @@
                     </group>
                 </group>
                 <footer>
-                    <button name="action_print" string="Bericht erstellen (PDF)" type="object" class="btn-primary"/>
+                    <button name="action_view" string="Anzeigen" type="object" class="btn-primary"/>
+                    <button name="action_print" string="PDF herunterladen" type="object" class="btn-secondary"/>
                     <button string="Abbrechen" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>

@@ -19,3 +19,8 @@ class HavocTaxReportWizard(models.TransientModel):
         self.ensure_one()
         return self.env.ref(
             'havoc_tax_report.action_havoc_tax_report').report_action(self)
+
+    def action_view(self):
+        self.ensure_one()
+        return self.env.ref(
+            'havoc_tax_report.action_havoc_tax_report_html').report_action(self)
