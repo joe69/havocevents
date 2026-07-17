@@ -56,6 +56,8 @@ class SaleOrder(models.Model):
         if not product or not product.active:
             return
 
+        amount = self._havoc_consistent_amount(product, amount)
+
         vals = {
             'price_unit': amount,
             'product_uom_qty': 1.0,
@@ -71,3 +73,28 @@ class SaleOrder(models.Model):
                 'is_havoc_fee': True,
                 **vals,
             })
+
+    def _havoc_consistent_amount(self, product, raw_amount):
+        """Betrag minimal anpassen (max ±5 Cent), sodass gerundetes Netto +
+        gerundete Steuer wieder exakt den Bruttobetrag ergeben. Vermeidet
+        1-Cent-Abweichungen zwischen Zeilenanzeige und Gesamtsumme bei
+        inkludierten Steuern (z. B. 2,25 € mit 20% inkl. → netto 1,875)."""
+        self.ensure_one()
+        taxes = product.taxes_id.filtered(
+            lambda t: not t.company_id or t.company_id == self.company_id)
+        if self.fiscal_position_id:
+            taxes = self.fiscal_position_id.map_tax(taxes)
+        if not taxes:
+            return raw_amount
+        currency = self.currency_id
+        for delta in (0.0, -0.01, 0.01, -0.02, 0.02, -0.03, 0.03, -0.04, 0.04, -0.05, 0.05):
+            candidate = currency.round(raw_amount + delta)
+            if candidate <= 0:
+                continue
+            res = taxes.compute_all(
+                candidate, currency, 1.0, product, self.partner_id)
+            recomposed = currency.round(res['total_excluded']) + sum(
+                currency.round(t['amount']) for t in res['taxes'])
+            if currency.compare_amounts(recomposed, candidate) == 0:
+                return candidate
+        return raw_amount
