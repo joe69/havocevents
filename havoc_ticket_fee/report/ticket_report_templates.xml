@@ -28,8 +28,8 @@
                     <i class="fa fa-calendar fa-2x fa-fw me-2 mt-1"/>
                     <t t-set="havoc_ticket_name" t-value="(attendee and attendee.event_ticket_id.name or '').lower()"/>
                     <div t-if="'weekend' in havoc_ticket_name">
-                        <span class="text-nowrap">18.09. &#8211; 16:00&#8211;22:00 Uhr</span><br/>
-                        <span class="text-nowrap">19.09. &#8211; 14:00&#8211;22:00 Uhr</span>
+                        <span class="text-nowrap">18.09.2026 &#8211; 16:00&#8211;22:00 Uhr</span><br/>
+                        <span class="text-nowrap">19.09.2026 &#8211; 14:00&#8211;22:00 Uhr</span>
                     </div>
                     <div t-elif="'freitag' in havoc_ticket_name">
                         <span class="text-nowrap">18.09.2026 &#8211; 16:00&#8211;22:00 Uhr</span>
