@@ -372,8 +372,13 @@ header#top {
     color: #c41818 !important;
 }
 
-.oe_website_sale {
-    // Bootstrap-5.3-Variablen: färben Karten, Tabellen und Inputs im Flow dunkel
+// Ganzes Frontend dunkel — Body, Checkout, Event-Formulare, Popups
+body {
+    background-color: #0a0a0a;
+}
+
+#wrapwrap {
+    // Bootstrap-5.3-Variablen: färben Karten, Tabellen und Inputs dunkel
     --bs-body-bg: #0a0a0a;
     --bs-body-color: #f2f2f2;
     --bs-border-color: #2c2c2c;
@@ -397,10 +402,23 @@ header#top {
         }
     }
 
-    .card {
+    .card,
+    .o_total_card {
         border-radius: 0;
         background-color: #141414;
         border-color: #2c2c2c;
+    }
+
+    // Zahlungsmethoden-Auswahl (Karte / PayPal / EPS / Klarna)
+    .list-group-item {
+        background-color: #141414;
+        color: #f2f2f2;
+        border-color: #2c2c2c;
+    }
+
+    .text-bg-light {
+        background-color: #1e1e1e !important;
+        color: #f2f2f2 !important;
     }
 
     .bg-white, .bg-light, .bg-100, .bg-200 {
@@ -471,5 +489,16 @@ header#top {
         background-color: #10210f;
         border-color: #1e4620;
         color: #9fd6a0;
+    }
+
+    // Modals (Ticket-Popup) dunkel, Schließen-X auf dunklem Grund sichtbar
+    .modal-content {
+        background-color: #141414;
+        color: #f2f2f2;
+        border: 1px solid #2c2c2c;
+    }
+
+    .btn-close {
+        filter: invert(1);
     }
 }
