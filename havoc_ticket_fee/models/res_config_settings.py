@@ -8,6 +8,6 @@ class ResConfigSettings(models.TransientModel):
     havoc_ticket_fee_percent = fields.Float(
         string='Verwaltungsgebühr auf Tickets (%)',
         config_parameter='havoc_ticket_fee.percent',
-        help='Prozentualer Aufschlag auf Event-Tickets im Warenkorb. '
+        help='Prozentualer Aufschlag auf den Brutto-Ticketpreis im Warenkorb. '
              '0 = keine Gebühr.',
     )

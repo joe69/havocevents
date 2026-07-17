@@ -29,9 +29,11 @@ class SaleOrder(models.Model):
         return res
 
     def _havoc_update_fee_line(self):
-        """Hält die Gebührenzeile aktuell: X% der Ticket-Zwischensumme (netto).
-        Wird nach jeder Warenkorb-Änderung neu berechnet — die Zeile lässt sich
-        dadurch auch nicht dauerhaft aus dem Warenkorb löschen."""
+        """Hält die Gebührenzeile aktuell: X% des Ticket-Bruttopreises (das,
+        was der Käufer sieht). Damit der angezeigte Gebührenbetrag exakt
+        stimmt, muss die Steuer am Gebühren-Produkt "im Preis enthalten" sein.
+        Wird nach jeder Warenkorb-Änderung neu berechnet — die Zeile lässt
+        sich dadurch auch nicht dauerhaft aus dem Warenkorb löschen."""
         self.ensure_one()
         get_param = self.env['ir.config_parameter'].sudo().get_param
         try:
@@ -42,7 +44,7 @@ class SaleOrder(models.Model):
         fee_lines = self.order_line.filtered('is_havoc_fee')
         ticket_lines = self.order_line.filtered(
             lambda l: l.event_ticket_id and not l.is_havoc_fee)
-        base = sum(ticket_lines.mapped('price_subtotal'))
+        base = sum(ticket_lines.mapped('price_total'))
         amount = self.currency_id.round(base * percent / 100.0)
 
         if percent <= 0 or not ticket_lines or self.currency_id.is_zero(amount):
