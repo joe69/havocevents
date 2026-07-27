@@ -22,4 +22,15 @@ class IrMailServer(models.Model):
                     if email_addr:
                         message.replace_header(
                             header, formataddr((sender_name, email_addr)))
+            # Firmenname im Betreff durch den Markennamen ersetzen
+            # (die Standardvorlagen setzen überall den Unternehmensnamen ein)
+            subject = message.get('Subject')
+            if subject:
+                subject = str(subject)
+                new_subject = subject
+                for company_name in self.env['res.company'].sudo().search([]).mapped('name'):
+                    if company_name:
+                        new_subject = new_subject.replace(company_name, sender_name)
+                if new_subject != subject:
+                    message.replace_header('Subject', new_subject)
         return super().send_email(message, *args, **kwargs)
