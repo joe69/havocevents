@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Empfängerliste für Newsletter -->
+    <record id="mailing_list_havoc" model="mailing.list">
+        <field name="name">HAVOC Newsletter</field>
+    </record>
+
+    <!-- Newsletter "Nächste Woche ist der Zirkus los!" als Entwurf -->
+    <record id="mailing_zirkus_los" model="mailing.mailing">
+        <field name="subject">Nächste Woche ist der Zirkus los! 🤡🎪</field>
+        <field name="preview">HAVOC Tent of Torment – 2 Tage Hardstyle &amp; Hardcore mitten in Graz</field>
+        <field name="email_from">Havoc Events &lt;noreply@havoc.events&gt;</field>
+        <field name="mailing_model_id" ref="mass_mailing.model_mailing_list"/>
+        <field name="contact_list_ids" eval="[(6, 0, [ref('mailing_list_havoc')])]"/>
+        <field name="body_arch" file="havoc_newsletter/data/newsletter_zirkus_body.html"/>
+        <field name="body_html" file="havoc_newsletter/data/newsletter_zirkus_body.html"/>
+    </record>
+
+</odoo>
