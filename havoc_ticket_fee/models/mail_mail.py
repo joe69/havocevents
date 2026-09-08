@@ -13,6 +13,12 @@ class MailMail(models.Model):
         Systemparameter `havoc.mail_contact_email`."""
         body = super()._prepare_outgoing_body()
         if body and 'noreply' in (self.email_from or '').lower():
+            # Odoo (z. B. E-Mail-Marketing mit Tracking-Links) liefert den Body
+            # teils als plain str. Markup + str würde den gesamten Body escapen
+            # (Markup.__radd__) -> HTML käme als Text an. Daher explizit als
+            # bereits sicheres HTML markieren.
+            if not isinstance(body, Markup):
+                body = Markup(body)
             contact = self.env['ir.config_parameter'].sudo().get_param(
                 'havoc.mail_contact_email', 'office@havoc.events')
             body += Markup(
