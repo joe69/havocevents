@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Kassen mit eingeschränkten Kategorien. Weitere vorhandene Zahlarten
+         (z. B. Kartenterminal) hängt der post_init_hook automatisch dazu. -->
+    <record id="pos_config_getraenke_1" model="pos.config">
+        <field name="name">Getränke Kassa 1</field>
+        <field name="limit_categories" eval="True"/>
+        <field name="iface_available_categ_ids" eval="[(6, 0, [ref('pos_categ_getraenke'), ref('pos_categ_essen')])]"/>
+        <field name="payment_method_ids" eval="[(6, 0, [ref('payment_method_bargeld')])]"/>
+    </record>
+
+    <record id="pos_config_getraenke_2" model="pos.config">
+        <field name="name">Getränke Kassa 2</field>
+        <field name="limit_categories" eval="True"/>
+        <field name="iface_available_categ_ids" eval="[(6, 0, [ref('pos_categ_getraenke'), ref('pos_categ_essen')])]"/>
+        <field name="payment_method_ids" eval="[(6, 0, [ref('payment_method_bargeld')])]"/>
+    </record>
+
+    <record id="pos_config_garderobe" model="pos.config">
+        <field name="name">Garderobe</field>
+        <field name="limit_categories" eval="True"/>
+        <field name="iface_available_categ_ids" eval="[(6, 0, [ref('pos_categ_garderobe'), ref('pos_categ_essen')])]"/>
+        <field name="payment_method_ids" eval="[(6, 0, [ref('payment_method_bargeld')])]"/>
+    </record>
+
+    <record id="pos_config_merchandise" model="pos.config">
+        <field name="name">Merchandise</field>
+        <field name="limit_categories" eval="True"/>
+        <field name="iface_available_categ_ids" eval="[(6, 0, [ref('pos_categ_merchandise')])]"/>
+        <field name="payment_method_ids" eval="[(6, 0, [ref('payment_method_bargeld')])]"/>
+    </record>
+
+    <record id="pos_config_eintritt" model="pos.config">
+        <field name="name">Eintritt</field>
+        <field name="limit_categories" eval="True"/>
+        <field name="iface_available_categ_ids" eval="[(6, 0, [ref('pos_categ_abendkassa')])]"/>
+        <field name="payment_method_ids" eval="[(6, 0, [ref('payment_method_bargeld')])]"/>
+    </record>
+
+</odoo>

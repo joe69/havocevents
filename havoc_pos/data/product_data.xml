@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Produkte laut Preisliste (Bruttopreise). Steuersätze (10 % Essen,
+         Ticketsteuer wie Online-Tickets, sonst 20 %) setzt der post_init_hook. -->
+
+    <!-- Seite 1: Essen -->
+    <record id="product_schnitzelsemmel" model="product.product">
+        <field name="name">Schnitzelsemmel</field>
+        <field name="type">consu</field>
+        <field name="list_price">6.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_essen')])]"/>
+        <field name="pos_sequence">10</field>
+    </record>
+
+    <record id="product_pommes" model="product.product">
+        <field name="name">Pommes</field>
+        <field name="type">consu</field>
+        <field name="list_price">6.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_essen')])]"/>
+        <field name="pos_sequence">20</field>
+    </record>
+
+    <!-- Seite 2: Merch -->
+    <record id="product_hoodie" model="product.product">
+        <field name="name">Hoodie HAVOC</field>
+        <field name="type">consu</field>
+        <field name="list_price">75.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_merchandise')])]"/>
+        <field name="pos_sequence">10</field>
+    </record>
+
+    <record id="product_tshirt" model="product.product">
+        <field name="name">T-Shirt</field>
+        <field name="type">consu</field>
+        <field name="list_price">30.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_merchandise')])]"/>
+        <field name="pos_sequence">20</field>
+    </record>
+
+    <record id="product_kapperl" model="product.product">
+        <field name="name">Kapperl</field>
+        <field name="type">consu</field>
+        <field name="list_price">25.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_merchandise')])]"/>
+        <field name="pos_sequence">30</field>
+    </record>
+
+    <record id="product_bauchtasche" model="product.product">
+        <field name="name">Bauchtasche</field>
+        <field name="type">consu</field>
+        <field name="list_price">25.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_merchandise')])]"/>
+        <field name="pos_sequence">40</field>
+    </record>
+
+    <record id="product_faecher" model="product.product">
+        <field name="name">Fächer</field>
+        <field name="type">consu</field>
+        <field name="list_price">10.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_merchandise')])]"/>
+        <field name="pos_sequence">50</field>
+    </record>
+
+    <record id="product_schluesselanhaenger" model="product.product">
+        <field name="name">Schlüsselanhänger</field>
+        <field name="type">consu</field>
+        <field name="list_price">5.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_merchandise')])]"/>
+        <field name="pos_sequence">60</field>
+    </record>
+
+    <record id="product_fahne" model="product.product">
+        <field name="name">Fahne</field>
+        <field name="type">consu</field>
+        <field name="list_price">10.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_merchandise')])]"/>
+        <field name="pos_sequence">70</field>
+    </record>
+
+    <record id="product_beutel" model="product.product">
+        <field name="name">Beutel</field>
+        <field name="type">consu</field>
+        <field name="list_price">10.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_merchandise')])]"/>
+        <field name="pos_sequence">80</field>
+    </record>
+
+    <!-- Super Deal: Hoodie kaufen und ein Accessoire gratis dazu.
+         Als Combo-Produkt: der Kassier wählt beim Antippen das Accessoire aus,
+         Gesamtpreis bleibt 75 €. -->
+    <record id="combo_hoodie" model="product.combo">
+        <field name="name">Hoodie</field>
+        <field name="sequence">1</field>
+        <field name="combo_item_ids" eval="[(0, 0, {'product_id': ref('product_hoodie')})]"/>
+    </record>
+    <record id="combo_gratis_accessoire" model="product.combo">
+        <field name="name">Gratis-Accessoire nach Wahl</field>
+        <field name="sequence">2</field>
+        <field name="combo_item_ids" eval="[
+            (0, 0, {'product_id': ref('product_faecher')}),
+            (0, 0, {'product_id': ref('product_schluesselanhaenger')}),
+            (0, 0, {'product_id': ref('product_fahne')}),
+            (0, 0, {'product_id': ref('product_beutel')}),
+        ]"/>
+    </record>
+    <record id="product_hoodie_superdeal" model="product.product">
+        <field name="name">Super Deal: Hoodie + Gratis-Accessoire</field>
+        <field name="type">combo</field>
+        <field name="combo_ids" eval="[(6, 0, [ref('combo_hoodie'), ref('combo_gratis_accessoire')])]"/>
+        <field name="list_price">75.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_merchandise')])]"/>
+        <field name="pos_sequence">15</field>
+    </record>
+
+    <!-- Seite 3: Garderobe -->
+    <record id="product_garderobe" model="product.product">
+        <field name="name">Garderobe</field>
+        <field name="type">service</field>
+        <field name="list_price">3.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_garderobe')])]"/>
+        <field name="pos_sequence">10</field>
+    </record>
+
+    <!-- Seite 4: Abendkassa -->
+    <record id="product_ticket_weekend" model="product.product">
+        <field name="name">Abendkassa Weekend</field>
+        <field name="type">service</field>
+        <field name="list_price">50.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_abendkassa')])]"/>
+        <field name="pos_sequence">10</field>
+    </record>
+
+    <record id="product_ticket_freitag" model="product.product">
+        <field name="name">Abendkassa Freitag</field>
+        <field name="type">service</field>
+        <field name="list_price">25.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_abendkassa')])]"/>
+        <field name="pos_sequence">20</field>
+    </record>
+
+    <record id="product_ticket_samstag" model="product.product">
+        <field name="name">Abendkassa Samstag</field>
+        <field name="type">service</field>
+        <field name="list_price">35.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_abendkassa')])]"/>
+        <field name="pos_sequence">30</field>
+    </record>
+
+    <!-- Seite 5: Getränke -->
+    <record id="product_bier" model="product.product">
+        <field name="name">Bier 0,4 l</field>
+        <field name="type">consu</field>
+        <field name="list_price">5.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_getraenke')])]"/>
+        <field name="pos_sequence">10</field>
+    </record>
+
+    <record id="product_spritzer" model="product.product">
+        <field name="name">Spritzer 0,4 l</field>
+        <field name="type">consu</field>
+        <field name="list_price">5.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_getraenke')])]"/>
+        <field name="pos_sequence">20</field>
+    </record>
+
+    <record id="product_aperol" model="product.product">
+        <field name="name">Aperol 0,3 l</field>
+        <field name="type">consu</field>
+        <field name="list_price">5.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_getraenke')])]"/>
+        <field name="pos_sequence">30</field>
+    </record>
+
+    <record id="product_soda" model="product.product">
+        <field name="name">Soda 0,5 l</field>
+        <field name="type">consu</field>
+        <field name="list_price">3.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_getraenke')])]"/>
+        <field name="pos_sequence">40</field>
+    </record>
+
+    <record id="product_makava" model="product.product">
+        <field name="name">Makava 0,3 l</field>
+        <field name="type">consu</field>
+        <field name="list_price">4.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_getraenke')])]"/>
+        <field name="pos_sequence">50</field>
+    </record>
+
+    <record id="product_cola" model="product.product">
+        <field name="name">Cola 0,5 l</field>
+        <field name="type">consu</field>
+        <field name="list_price">4.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_getraenke')])]"/>
+        <field name="pos_sequence">60</field>
+    </record>
+
+    <record id="product_spezi" model="product.product">
+        <field name="name">Spezi 0,5 l</field>
+        <field name="type">consu</field>
+        <field name="list_price">4.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_getraenke')])]"/>
+        <field name="pos_sequence">70</field>
+    </record>
+
+    <record id="product_redbull" model="product.product">
+        <field name="name">Red Bull 0,25 l</field>
+        <field name="type">consu</field>
+        <field name="list_price">4.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_getraenke')])]"/>
+        <field name="pos_sequence">80</field>
+    </record>
+
+    <record id="product_gatorade" model="product.product">
+        <field name="name">Gatorade 0,5 l</field>
+        <field name="type">consu</field>
+        <field name="list_price">4.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_getraenke')])]"/>
+        <field name="pos_sequence">90</field>
+    </record>
+
+    <record id="product_vodka_bull" model="product.product">
+        <field name="name">Vodka Bull 0,3 l</field>
+        <field name="type">consu</field>
+        <field name="list_price">7.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_getraenke')])]"/>
+        <field name="pos_sequence">100</field>
+    </record>
+
+    <record id="product_vodka_makava" model="product.product">
+        <field name="name">Vodka Makava 0,3 l</field>
+        <field name="type">consu</field>
+        <field name="list_price">7.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_getraenke')])]"/>
+        <field name="pos_sequence">110</field>
+    </record>
+
+    <record id="product_vodka_gatorade" model="product.product">
+        <field name="name">Vodka Gatorade 0,3 l</field>
+        <field name="type">consu</field>
+        <field name="list_price">7.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_getraenke')])]"/>
+        <field name="pos_sequence">120</field>
+    </record>
+
+    <record id="product_whiskey_cola" model="product.product">
+        <field name="name">Whiskey Cola 0,3 l</field>
+        <field name="type">consu</field>
+        <field name="list_price">7.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_getraenke')])]"/>
+        <field name="pos_sequence">130</field>
+    </record>
+
+    <record id="product_bacardi_cola" model="product.product">
+        <field name="name">Bacardi Cola 0,3 l</field>
+        <field name="type">consu</field>
+        <field name="list_price">7.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_getraenke')])]"/>
+        <field name="pos_sequence">140</field>
+    </record>
+
+    <record id="product_klopfer" model="product.product">
+        <field name="name">Klopfer 2 cl</field>
+        <field name="type">consu</field>
+        <field name="list_price">3.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_getraenke')])]"/>
+        <field name="pos_sequence">150</field>
+    </record>
+
+    <record id="product_jaegermeister" model="product.product">
+        <field name="name">Jägermeister 2 cl</field>
+        <field name="type">consu</field>
+        <field name="list_price">3.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_getraenke')])]"/>
+        <field name="pos_sequence">160</field>
+    </record>
+
+    <record id="product_berliner_luft" model="product.product">
+        <field name="name">Berliner Luft 2 cl</field>
+        <field name="type">consu</field>
+        <field name="list_price">3.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_getraenke')])]"/>
+        <field name="pos_sequence">170</field>
+    </record>
+
+    <record id="product_flasche" model="product.product">
+        <field name="name">Flasche 0,7 l</field>
+        <field name="type">consu</field>
+        <field name="list_price">90.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_getraenke')])]"/>
+        <field name="pos_sequence">180</field>
+    </record>
+
+    <record id="product_zigaretten" model="product.product">
+        <field name="name">Zigaretten</field>
+        <field name="type">consu</field>
+        <field name="list_price">12.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_getraenke')])]"/>
+        <field name="pos_sequence">190</field>
+    </record>
+
+    <record id="product_pfand_becher" model="product.product">
+        <field name="name">Pfand Becher</field>
+        <field name="type">consu</field>
+        <field name="list_price">2.00</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_getraenke')])]"/>
+        <field name="pos_sequence">200</field>
+    </record>
+
+</odoo>

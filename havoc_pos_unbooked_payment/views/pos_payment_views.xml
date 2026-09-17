@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_pos_payment_search_havoc_unbooked" model="ir.ui.view">
+        <field name="name">pos.payment.search.havoc.unbooked</field>
+        <field name="model">pos.payment</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_payment_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="before">
+                <filter string="Blacky-Zahlart (nicht verbuchen)" name="havoc_unbooked_method"
+                        domain="[('payment_method_id.havoc_skip_accounting', '=', True)]"/>
+                <filter string="Blacky-Bestellung" name="havoc_unbooked_order"
+                        domain="[('pos_order_id.havoc_is_unbooked', '=', True)]"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -13,6 +13,7 @@
         'account',
         'point_of_sale',
         'website_event_sale',
+        'havoc_pos_unbooked_payment',
     ],
     'data': [
         'security/ir.model.access.csv',

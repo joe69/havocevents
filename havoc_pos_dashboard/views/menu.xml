@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_havoc_pos_dashboard" model="ir.actions.act_url">
+        <field name="name">Kassen-Dashboard (live)</field>
+        <field name="url">/havoc/kassen</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_havoc_pos_dashboard"
+              name="Kassen-Dashboard (live)"
+              parent="point_of_sale.menu_point_rep"
+              action="action_havoc_pos_dashboard"
+              sequence="1"
+              groups="point_of_sale.group_pos_user"/>
+
+</odoo>

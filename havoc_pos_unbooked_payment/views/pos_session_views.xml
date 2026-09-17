@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_pos_session_form_havoc_unbooked" model="ir.ui.view">
+        <field name="name">pos.session.form.havoc.unbooked</field>
+        <field name="model">pos.session</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='cash_register_balance_end_real']" position="after">
+                <field name="havoc_unbooked_count" invisible="not havoc_unbooked_count"/>
+                <field name="havoc_unbooked_amount" invisible="not havoc_unbooked_count"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_pos_session_tree_havoc_unbooked" model="ir.ui.view">
+        <field name="name">pos.session.list.havoc.unbooked</field>
+        <field name="model">pos.session</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_session_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='cash_register_balance_end_real']" position="after">
+                <field name="havoc_unbooked_amount" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

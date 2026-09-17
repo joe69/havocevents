@@ -30,20 +30,25 @@ class HavocTaxReport(models.AbstractModel):
         web_orders = orders.filtered('website_id')
         back_orders = orders - web_orders
 
-        # POS-Bestellungen
-        pos_orders = self.env['pos.order'].search([
+        # POS-Bestellungen. "Blacky" = mit einer nicht verbuchten Zahlart
+        # (z. B. Bargeld) bezahlt: zählt nicht zum Umsatz, wird aber in einer
+        # eigenen Spalte (brutto) zur Information mitgeführt.
+        all_pos_orders = self.env['pos.order'].search([
             ('company_id', '=', company.id),
             ('state', 'in', ('paid', 'done', 'invoiced')),
             ('date_order', '>=', dt_from),
             ('date_order', '<', dt_end),
         ])
+        blacky_orders = all_pos_orders.filtered(lambda o: o._havoc_is_unbooked())
+        pos_orders = all_pos_orders - blacky_orders
 
-        def block(count, untaxed, tax_amount):
+        def block(count, untaxed, tax_amount, blacky=0.0):
             return {
                 'count': count,
                 'untaxed': untaxed,
                 'tax': tax_amount,
                 'total': untaxed + tax_amount,
+                'blacky': blacky,
             }
 
         channels = [
@@ -54,7 +59,8 @@ class HavocTaxReport(models.AbstractModel):
             ('POS-Verkauf (Abendkassa)', block(
                 len(pos_orders),
                 sum(o.amount_total - o.amount_tax for o in pos_orders),
-                sum(pos_orders.mapped('amount_tax')))),
+                sum(pos_orders.mapped('amount_tax')),
+                sum(blacky_orders.mapped('amount_total')))),
             ('Backend / manuell', block(
                 len(back_orders),
                 sum(back_orders.mapped('amount_untaxed')),
@@ -63,7 +69,9 @@ class HavocTaxReport(models.AbstractModel):
         total = block(
             sum(c[1]['count'] for c in channels),
             sum(c[1]['untaxed'] for c in channels),
-            sum(c[1]['tax'] for c in channels))
+            sum(c[1]['tax'] for c in channels),
+            sum(c[1]['blacky'] for c in channels))
+        blacky_count = len(blacky_orders)
 
         # ------------------------------------------------------------------
         # Umsatz je Tickettyp (aus Verkaufsaufträgen)
@@ -162,11 +170,14 @@ class HavocTaxReport(models.AbstractModel):
         ]):
             method = payment.payment_method_id
             entry = pos_payments.setdefault(method.id, {
-                'name': method.name, 'count': 0, 'amount': 0.0,
+                'name': method.name, 'count': 0, 'amount': 0.0, 'blacky': 0.0,
             })
-            entry['count'] += 1
-            entry['amount'] += payment.amount
-        pos_pay_rows = sorted(pos_payments.values(), key=lambda p: -p['amount'])
+            if payment.pos_order_id._havoc_is_unbooked():
+                entry['blacky'] += payment.amount
+            else:
+                entry['count'] += 1
+                entry['amount'] += payment.amount
+        pos_pay_rows = sorted(pos_payments.values(), key=lambda p: (-p['amount'], -p['blacky']))
 
         return {
             'doc_ids': docids,
@@ -178,6 +189,7 @@ class HavocTaxReport(models.AbstractModel):
             'date_to': date_to,
             'channels': channels,
             'total': total,
+            'blacky_count': blacky_count,
             'ticket_rows': ticket_rows,
             'tax_rows': tax_rows,
             'tax_rows_from_orders': tax_rows_from_orders,

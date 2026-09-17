@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="page" name="Kassen-Dashboard (live)">&lt;!DOCTYPE html&gt;
+<html lang="de">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta http-equiv="refresh" t-att-content="refresh"/>
+        <title>Kassen-Dashboard</title>
+        <style>
+            :root { color-scheme: light dark; }
+            body { margin: 0; padding: 16px; font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.4; }
+            h1 { font-size: 1.3rem; margin: 0 0 4px; }
+            h2 { font-size: 1.05rem; margin: 24px 0 6px; }
+            .meta { color: #777; font-size: .85rem; margin-bottom: 12px; }
+            .tabs a { display: inline-block; padding: 6px 12px; margin: 0 6px 6px 0; border: 1px solid #999; border-radius: 6px; text-decoration: none; color: inherit; }
+            .tabs a.active { background: #d9241d; border-color: #d9241d; color: #fff; font-weight: 600; }
+            .wrap { overflow-x: auto; }
+            table { border-collapse: collapse; width: 100%; min-width: 560px; }
+            th, td { padding: 6px 8px; border-bottom: 1px solid #ccc; white-space: nowrap; }
+            th { text-align: left; border-bottom: 2px solid #333; font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; }
+            td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+            tr.total td { border-top: 2px solid #333; font-weight: 700; }
+            .blacky { color: #b06000; }
+            .muted { color: #888; font-size: .85rem; }
+            .cards { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0 4px; }
+            .card { flex: 1 1 140px; border: 1px solid #ccc; border-radius: 8px; padding: 10px 12px; }
+            .card .label { font-size: .75rem; text-transform: uppercase; color: #777; }
+            .card .value { font-size: 1.4rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+        </style>
+    </head>
+    <body>
+        <h1>Kassen-Dashboard <span class="muted" t-out="company.name"/></h1>
+        <div class="meta">Stand <t t-out="generated_at"/> · aktualisiert sich alle <t t-out="refresh"/> Sekunden</div>
+
+        <div class="tabs">
+            <t t-foreach="periods" t-as="p">
+                <a t-att-href="'/havoc/kassen?period=%s' % p[0]" t-att-class="'active' if p[0] == period else ''" t-out="p[1]"/>
+            </t>
+        </div>
+
+        <div class="cards">
+            <div class="card"><div class="label">Bestellungen</div><div class="value" t-out="totals['orders']"/></div>
+            <div class="card"><div class="label">Umsatz verbucht</div><div class="value" t-out="totals['booked']" t-options='{"widget": "monetary", "display_currency": currency}'/></div>
+            <div class="card"><div class="label">Blacky</div><div class="value blacky" t-out="totals['blacky']" t-options='{"widget": "monetary", "display_currency": currency}'/></div>
+            <div class="card"><div class="label">Gesamt brutto</div><div class="value" t-out="totals['total']" t-options='{"widget": "monetary", "display_currency": currency}'/></div>
+        </div>
+
+        <h2>Je Kasse</h2>
+        <div class="wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Kasse</th>
+                        <th t-if="period == 'session'">Sitzung</th>
+                        <th class="num">Bestellungen</th>
+                        <th class="num">Verbucht</th>
+                        <th class="num blacky">Blacky</th>
+                        <th class="num">Gesamt</th>
+                        <th class="num" t-foreach="methods" t-as="method" t-out="method.name"/>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="rows" t-as="row">
+                        <td t-out="row['config'].name"/>
+                        <td t-if="period == 'session'" class="muted" t-out="row['session_label']"/>
+                        <td class="num" t-out="row['orders']"/>
+                        <td class="num" t-out="row['booked']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                        <td class="num blacky" t-out="row['blacky']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                        <td class="num" t-out="row['total']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                        <td class="num" t-foreach="methods" t-as="method" t-out="row['payments'].get(method, 0.0)" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                    </tr>
+                    <tr class="total">
+                        <td>Gesamt</td>
+                        <td t-if="period == 'session'"/>
+                        <td class="num" t-out="totals['orders']"/>
+                        <td class="num" t-out="totals['booked']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                        <td class="num blacky" t-out="totals['blacky']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                        <td class="num" t-out="totals['total']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                        <td class="num" t-foreach="methods" t-as="method" t-out="totals['payments'].get(method, 0.0)" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                    </tr>
+                    <tr t-if="not rows">
+                        <td colspan="6"><em>Keine Kassen vorhanden.</em></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>Top-Produkte</h2>
+        <div class="wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Produkt</th>
+                        <th class="num">Menge</th>
+                        <th class="num">Brutto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="top_products" t-as="item">
+                        <td t-out="item['product'].display_name"/>
+                        <td class="num" t-out="item['qty']" t-options='{"widget": "float", "precision": 0}'/>
+                        <td class="num" t-out="item['amount']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                    </tr>
+                    <tr t-if="not top_products">
+                        <td colspan="3"><em>Noch keine Verkäufe.</em></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p class="muted" style="margin-top: 20px;">
+            „Verbucht“ = Bestellungen, die beim Sitzungsabschluss in die Buchhaltung gehen.
+            „Blacky“ = Bestellungen mit einer Zahlart mit Schalter „Nicht verbuchen“ (z.&#160;B. Bargeld), brutto, nur zur Info.
+            Spalten je Zahlart zeigen alle Zahlungen, unabhängig von der Verbuchung. Top-Produkte zählen alle Bestellungen.
+        </p>
+    </body>
+</html>
+    </template>
+
+</odoo>

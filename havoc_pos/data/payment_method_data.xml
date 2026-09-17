@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Zahlart "Bargeld": bewusst KEIN Kassa-Journal (Typ cash), sondern ein
+         eigenes Bank-Journal. Nur so kann ein und dieselbe Zahlart auf allen
+         Kassen liegen (Odoo erlaubt Bar-Zahlarten nur je einer Kasse) und der
+         Schalter "Nicht verbuchen" ist ein einziger. Outstanding-Konto und
+         Zuordnung zu den Kassen setzt der post_init_hook. -->
+    <record id="journal_bargeld" model="account.journal">
+        <field name="name">Bargeld (Kassa)</field>
+        <field name="type">bank</field>
+        <field name="code">BARG</field>
+    </record>
+
+    <record id="payment_method_bargeld" model="pos.payment.method">
+        <field name="name">Bargeld</field>
+        <field name="journal_id" ref="journal_bargeld"/>
+        <field name="sequence">0</field>
+        <field name="havoc_skip_accounting" eval="True"/>
+    </record>
+
+</odoo>

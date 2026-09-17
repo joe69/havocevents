@@ -23,6 +23,7 @@
                             <th class="text-end">Netto</th>
                             <th class="text-end">USt</th>
                             <th class="text-end">Brutto</th>
+                            <th class="text-end" style="color: #666;">Blacky</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,6 +33,7 @@
                             <td class="text-end" t-out="channel[1]['untaxed']" t-options='{"widget": "monetary", "display_currency": currency}'/>
                             <td class="text-end" t-out="channel[1]['tax']" t-options='{"widget": "monetary", "display_currency": currency}'/>
                             <td class="text-end" t-out="channel[1]['total']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                            <td class="text-end" style="color: #666;" t-out="channel[1]['blacky']" t-options='{"widget": "monetary", "display_currency": currency}'/>
                         </tr>
                         <tr style="border-top: 2px solid #000; font-weight: bold;">
                             <td>Gesamt</td>
@@ -39,6 +41,7 @@
                             <td class="text-end" t-out="total['untaxed']" t-options='{"widget": "monetary", "display_currency": currency}'/>
                             <td class="text-end" t-out="total['tax']" t-options='{"widget": "monetary", "display_currency": currency}'/>
                             <td class="text-end" t-out="total['total']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                            <td class="text-end" style="color: #666;" t-out="total['blacky']" t-options='{"widget": "monetary", "display_currency": currency}'/>
                         </tr>
                     </tbody>
                 </table>
@@ -107,6 +110,7 @@
                             <th>Zahlart</th>
                             <th class="text-end">Zahlungen</th>
                             <th class="text-end">Betrag</th>
+                            <th class="text-end" style="color: #666;">Blacky</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -114,14 +118,16 @@
                             <td>Online — <t t-out="pay['name']"/></td>
                             <td class="text-end" t-out="pay['count']"/>
                             <td class="text-end" t-out="pay['amount']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                            <td class="text-end" style="color: #666;">—</td>
                         </tr>
                         <tr t-foreach="pos_pay_rows" t-as="pay">
                             <td>POS — <t t-out="pay['name']"/></td>
                             <td class="text-end" t-out="pay['count']"/>
                             <td class="text-end" t-out="pay['amount']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                            <td class="text-end" style="color: #666;" t-out="pay['blacky']" t-options='{"widget": "monetary", "display_currency": currency}'/>
                         </tr>
                         <tr t-if="not online_rows and not pos_pay_rows">
-                            <td colspan="3"><em>Keine Zahlungen im Zeitraum.</em></td>
+                            <td colspan="4"><em>Keine Zahlungen im Zeitraum.</em></td>
                         </tr>
                     </tbody>
                 </table>
@@ -131,7 +137,11 @@
                     USt-Tabelle auf gebuchten Belegen der Verkaufsjournale — kleine Abweichungen
                     (noch nicht abgerechnete Aufträge, Gutschriften) sind möglich. UVA-Kennzahlen:
                     KZ 022 (20&#160;%), KZ 006 (13&#160;%), KZ 029 (10&#160;%); Gesamtbetrag der
-                    Bemessungsgrundlagen = KZ 000. Ersetzt keine steuerliche Beratung.
+                    Bemessungsgrundlagen = KZ 000. Spalte „Blacky“: POS-Bestellungen mit einer
+                    nicht verbuchten Zahlart (z.&#160;B. Bargeld), brutto, nur zur Information –
+                    in Bestellungen, Netto, USt und Brutto nicht enthalten
+                    (<t t-out="blacky_count"/> Bestellungen im Zeitraum).
+                    Ersetzt keine steuerliche Beratung.
                 </p>
 
             </div>

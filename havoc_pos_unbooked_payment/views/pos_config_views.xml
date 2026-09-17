@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Kassen-Karten im POS-Dashboard: Umsatz und Blacky der laufenden Sitzung -->
+    <record id="view_pos_config_kanban_havoc_unbooked" model="ir.ui.view">
+        <field name="name">pos.config.kanban.havoc.unbooked</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_config_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//span[@name='paid_orders']/.." position="after">
+                <div t-if="record.havoc_current_booked_amount.raw_value or record.havoc_current_blacky_amount.raw_value" class="row">
+                    <div class="col-5">
+                        <span>Umsatz</span>
+                    </div>
+                    <field name="havoc_current_booked_amount" widget="monetary" class="col-7"/>
+                </div>
+                <div t-if="record.havoc_current_blacky_amount.raw_value" class="row">
+                    <div class="col-5">
+                        <span>Blacky</span>
+                    </div>
+                    <field name="havoc_current_blacky_amount" widget="monetary" class="col-7"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

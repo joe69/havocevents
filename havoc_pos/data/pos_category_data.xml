@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Eine POS-Kategorie je Seite der Preisliste -->
+    <record id="pos_categ_essen" model="pos.category">
+        <field name="name">Essen</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="pos_categ_getraenke" model="pos.category">
+        <field name="name">Getränke</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="pos_categ_merchandise" model="pos.category">
+        <field name="name">Merchandise</field>
+        <field name="sequence">30</field>
+    </record>
+    <record id="pos_categ_garderobe" model="pos.category">
+        <field name="name">Garderobe</field>
+        <field name="sequence">40</field>
+    </record>
+    <record id="pos_categ_abendkassa" model="pos.category">
+        <field name="name">Abendkassa</field>
+        <field name="sequence">50</field>
+    </record>
+
+</odoo>

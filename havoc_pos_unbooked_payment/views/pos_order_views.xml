@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_pos_pos_form_havoc_unbooked" model="ir.ui.view">
+        <field name="name">pos.order.form.havoc.unbooked</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/field[@name='failed_pickings']" position="before">
+                <widget name="web_ribbon" title="Blacky (nicht verbucht)" bg_color="text-bg-warning"
+                        invisible="not havoc_accounting_skipped"/>
+            </xpath>
+            <xpath expr="//field[@name='session_id']" position="after">
+                <field name="havoc_accounting_skipped" invisible="not havoc_accounting_skipped"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_pos_order_tree_havoc_unbooked" model="ir.ui.view">
+        <field name="name">pos.order.list.havoc.unbooked</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="after">
+                <field name="havoc_accounting_skipped" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_pos_order_filter_havoc_unbooked" model="ir.ui.view">
+        <field name="name">pos.order.search.havoc.unbooked</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='posted']" position="after">
+                <filter string="Blacky (nicht verbucht)" name="havoc_unbooked"
+                        domain="[('havoc_is_unbooked', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Zähler: alle Blacky-Bestellungen (laufende und abgeschlossene Sitzungen),
+         je Kasse gruppiert, Summe in der Fußzeile der Liste -->
+    <record id="action_pos_order_havoc_blacky" model="ir.actions.act_window">
+        <field name="name">Blacky</field>
+        <field name="res_model">pos.order</field>
+        <field name="view_mode">list,form,pivot</field>
+        <field name="domain">[('havoc_is_unbooked', '=', True)]</field>
+        <field name="context">{'search_default_config_id': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                Noch keine Blacky-Bestellungen
+            </p><p>
+                Hier erscheinen alle Bestellungen, die mit einer Zahlart mit Schalter
+                „Nicht verbuchen“ (z.&#160;B. Bargeld) bezahlt wurden – laufend während der
+                Sitzung und dauerhaft nach dem Abschluss. Die Summe steht unter der Liste.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_pos_order_havoc_blacky"
+              name="Blacky"
+              parent="point_of_sale.menu_point_of_sale"
+              action="action_pos_order_havoc_blacky"
+              sequence="4"
+              groups="point_of_sale.group_pos_manager,point_of_sale.group_pos_user"/>
+
+</odoo>
