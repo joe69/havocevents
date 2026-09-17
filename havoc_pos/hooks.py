@@ -57,6 +57,40 @@ def _find_sale_tax(env, company, template_xmlid, percent):
     return tax
 
 
+def _ensure_price_included(env, company, tax):
+    """Liefert eine preisinklusive Steuer zu ``tax`` (Preisliste = Bruttopreise).
+
+    Reihenfolge:
+    1. Steuer ist schon preisinklusiv -> unverändert.
+    2. Firma hat noch nicht gebucht -> Firmenstandard "Preise inkl. Steuern"
+       setzen (Odoo erlaubt das später nicht mehr).
+    3. Sonst eine vorhandene inklusive Steuer gleichen Satzes verwenden,
+    4. sonst eine Kopie "<Name> (inkl.)" anlegen, damit bestehende Steuern,
+       Produkte und Rechnungen unverändert bleiben.
+    """
+    if not tax or tax.price_include:
+        return tax
+    if (company.account_price_include != 'tax_included'
+            and not company.sudo()._existing_accounting()):
+        company.account_price_include = 'tax_included'
+        env['account.tax'].invalidate_model(['price_include', 'company_price_include'])
+        _logger.info('havoc_pos: Firmenstandard "Preise inkl. Steuern" gesetzt '
+                     '(noch keine Buchungen vorhanden).')
+        if tax.price_include:
+            return tax
+    copy_name = f'{tax.name} (inkl.)'
+    existing = env['account.tax'].search([
+        ('company_id', '=', company.id), ('type_tax_use', '=', 'sale'),
+        ('name', '=', copy_name), ('active', '=', True),
+    ], limit=1) or _search_sale_tax(env, company, tax.amount, price_include=True)
+    if existing:
+        return existing
+    copy = tax.copy({'name': copy_name, 'price_include_override': 'tax_included'})
+    _logger.info('havoc_pos: preisinklusive Steuer "%s" als Kopie von "%s" angelegt.',
+                 copy.name, tax.name)
+    return copy
+
+
 def _find_ticket_taxes(env, company):
     """Abendkassa-Tickets wie die Online-Tickets besteuern; sonst 13 % (AT)."""
     Ticket = env.get('event.event.ticket')
@@ -101,13 +135,17 @@ def _setup_taxes(env, company):
     tickets = env['product.product'].browse([env.ref(f'{MODULE}.{x}').id for x in TICKET_PRODUCTS])
     rest = products - food - tickets
 
-    _apply_taxes(company, food,
-                 _find_sale_tax(env, company, 'account_tax_template_sales_10_code029', 10.0),
-                 'Essen 10 %')
-    _apply_taxes(company, tickets, _find_ticket_taxes(env, company), 'Abendkassa-Tickets')
-    _apply_taxes(company, rest,
-                 _find_sale_tax(env, company, 'account_tax_template_sales_20_code022', 20.0),
-                 'Getränke/Merch/Garderobe 20 %')
+    food_tax = _ensure_price_included(
+        env, company, _find_sale_tax(env, company, 'account_tax_template_sales_10_code029', 10.0))
+    ticket_taxes = env['account.tax']
+    for tax in _find_ticket_taxes(env, company):
+        ticket_taxes |= _ensure_price_included(env, company, tax)
+    rest_tax = _ensure_price_included(
+        env, company, _find_sale_tax(env, company, 'account_tax_template_sales_20_code022', 20.0))
+
+    _apply_taxes(company, food, food_tax, 'Essen 10 %')
+    _apply_taxes(company, tickets, ticket_taxes, 'Abendkassa-Tickets')
+    _apply_taxes(company, rest, rest_tax, 'Getränke/Merch/Garderobe 20 %')
 
 
 # ----------------------------------------------------------------------

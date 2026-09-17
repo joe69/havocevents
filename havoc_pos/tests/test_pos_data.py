@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import unittest.mock
+
 from odoo.tests import TransactionCase, tagged
 
 
@@ -74,3 +76,47 @@ class TestHavocPosData(TransactionCase):
             self.assertEqual(drink, {20.0})
         if ticket and food:
             self.assertNotEqual(ticket, food, 'Tickets dürfen nicht den Essen-Satz bekommen')
+
+    def test_pos_prices_are_gross(self):
+        """Preisliste = Bruttopreise: jede zugewiesene Steuer ist preisinklusiv,
+        die Kassa verkauft Bier um 5 € und nicht um 6 €."""
+        company = self.env.company
+        data = self.env['ir.model.data'].search([
+            ('module', '=', 'havoc_pos'), ('model', '=', 'product.product')])
+        products = self.env['product.product'].browse(data.mapped('res_id'))
+        for product in products:
+            taxes = product.taxes_id.filtered(lambda t: t.company_id == company)
+            self.assertTrue(all(taxes.mapped('price_include')),
+                            f'{product.name}: {taxes.mapped("name")} nicht preisinklusiv')
+        bier = self._ref('product_bier')
+        taxes = bier.taxes_id.filtered(lambda t: t.company_id == company)
+        if taxes:
+            totals = taxes.compute_all(bier.list_price, company.currency_id, 2)
+            self.assertAlmostEqual(totals['total_included'], 10.0)
+
+    def test_hook_copies_tax_when_company_locked(self):
+        """Firma hat schon gebucht: Hook legt eine preisinklusive Kopie an statt
+        die Firmeneinstellung oder bestehende Steuern zu ändern. Ein Satz ohne
+        vorhandene inklusive Variante (12,5 %) erzwingt den Kopier-Pfad."""
+        from odoo.addons.havoc_pos import hooks
+        company = self.env.company
+        base = self.env['account.tax'].create({
+            'name': 'Test 12,5% exkl.', 'amount': 12.5, 'amount_type': 'percent',
+            'type_tax_use': 'sale', 'company_id': company.id,
+            'price_include_override': 'tax_excluded',
+        })
+        setting_before = company.account_price_include
+        with unittest.mock.patch.object(type(company), '_existing_accounting', return_value=True):
+            result = hooks._ensure_price_included(self.env, company, base)
+            # zweiter Lauf ist idempotent
+            again = hooks._ensure_price_included(self.env, company, base)
+
+        self.assertEqual(company.account_price_include, setting_before, 'Firmeneinstellung bleibt')
+        self.assertFalse(base.price_include, 'Original bleibt unverändert')
+        self.assertNotEqual(result, base)
+        self.assertEqual(result.name, 'Test 12,5% exkl. (inkl.)')
+        self.assertTrue(result.price_include)
+        self.assertEqual(result.amount, 12.5)
+        self.assertEqual(result.type_tax_use, 'sale')
+        self.assertEqual(len(result.repartition_line_ids), len(base.repartition_line_ids))
+        self.assertEqual(again, result)
