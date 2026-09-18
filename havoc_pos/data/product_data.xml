@@ -343,4 +343,17 @@
         <field name="pos_sequence">200</field>
     </record>
 
+    <!-- Pfand-Rückgabe als eigenes Produkt mit negativem Preis (Bild direkt hier,
+         weil noupdate-Bilddatei bestehende Kennungen überspringt) -->
+    <record id="product_pfand_rueckgabe" model="product.product">
+        <field name="name">Pfand zurück</field>
+        <field name="type">consu</field>
+        <field name="list_price">-2.00</field>
+        <field name="purchase_ok" eval="False"/>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_getraenke')])]"/>
+        <field name="pos_sequence">210</field>
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_pfand_rueckgabe.png"/>
+    </record>
+
 </odoo>

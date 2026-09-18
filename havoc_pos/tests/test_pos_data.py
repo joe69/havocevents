@@ -39,7 +39,7 @@ class TestHavocPosData(TransactionCase):
         data = self.env['ir.model.data'].search([
             ('module', '=', 'havoc_pos'), ('model', '=', 'product.product')])
         products = self.env['product.product'].browse(data.mapped('res_id'))
-        self.assertEqual(len(products), 35)
+        self.assertEqual(len(products), 36)
         self.assertTrue(all(products.mapped('available_in_pos')))
         self.assertTrue(all(p.pos_categ_ids for p in products))
 
@@ -48,7 +48,7 @@ class TestHavocPosData(TransactionCase):
             'product_garderobe': 3, 'product_ticket_weekend': 50, 'product_ticket_freitag': 25,
             'product_ticket_samstag': 35, 'product_bier': 5, 'product_soda': 3,
             'product_vodka_bull': 7, 'product_klopfer': 3, 'product_flasche': 90,
-            'product_zigaretten': 12, 'product_pfand_becher': 2,
+            'product_zigaretten': 12, 'product_pfand_becher': 2, 'product_pfand_rueckgabe': -2,
         }
         for xmlid, price in prices.items():
             self.assertAlmostEqual(self._ref(xmlid).list_price, price, msg=xmlid)
