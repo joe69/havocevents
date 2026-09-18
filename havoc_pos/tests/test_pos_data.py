@@ -15,7 +15,7 @@ class TestHavocPosData(TransactionCase):
             'pos_config_getraenke_1': {'Getränke', 'Essen'},
             'pos_config_getraenke_2': {'Getränke', 'Essen'},
             'pos_config_garderobe': {'Garderobe', 'Essen'},
-            'pos_config_merchandise': {'Merchandise'},
+            'pos_config_merchandise': {'Merchandise', 'Abendkassa'},
             'pos_config_eintritt': {'Abendkassa'},
         }
         bargeld = self._ref('payment_method_bargeld')
