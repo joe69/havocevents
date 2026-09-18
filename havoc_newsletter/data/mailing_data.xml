@@ -17,4 +17,15 @@
         <field name="body_html" type="char" file="havoc_newsletter/data/newsletter_zirkus_body.html"/>
     </record>
 
+    <!-- Newsletter "Last Infos" (Ticket-Deadlines, Garderobe, Timetable, Anfahrt) als Entwurf -->
+    <record id="mailing_last_infos" model="mailing.mailing">
+        <field name="subject">Last Infos: Es geht los! 🎪 Online-Tickets nur noch bis 12 Uhr</field>
+        <field name="preview">Ticket-Deadlines, Garderobe (1 Stück pro Haken), Timetable, Anfahrt &amp; Parken – alles auf einen Blick</field>
+        <field name="email_from">Havoc Events &lt;noreply@havoc.events&gt;</field>
+        <field name="mailing_model_id" ref="mass_mailing.model_mailing_list"/>
+        <field name="contact_list_ids" eval="[(6, 0, [ref('mailing_list_havoc')])]"/>
+        <field name="body_arch" type="char" file="havoc_newsletter/data/newsletter_last_infos_body.html"/>
+        <field name="body_html" type="char" file="havoc_newsletter/data/newsletter_last_infos_body.html"/>
+    </record>
+
 </odoo>
