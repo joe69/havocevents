@@ -14,6 +14,9 @@
     'depends': [
         'point_of_sale',
         'havoc_pos_unbooked_payment',
+        # website_sale ergänzt product.template um Pflichtfelder (publish_date);
+        # es muss vor havoc_pos geladen sein, sonst schlagen neue Produkte beim Update fehl
+        'website_sale',
     ],
     'data': [
         'data/pos_category_data.xml',
