@@ -18,6 +18,7 @@
     'data': [
         'data/pos_category_data.xml',
         'data/product_data.xml',
+        'data/product_images.xml',
         'data/payment_method_data.xml',
         'data/pos_config_data.xml',
     ],

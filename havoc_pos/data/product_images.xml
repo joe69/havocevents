@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Einfache, gut unterscheidbare Kacheln für die Kassa (Piktogramm + Name).
+         noupdate: werden nur bei der Installation gesetzt, eigene Fotos in Odoo
+         überleben spätere Modul-Updates. -->
+
+    <record id="product_schnitzelsemmel" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_schnitzelsemmel.png"/>
+    </record>
+
+    <record id="product_pommes" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_pommes.png"/>
+    </record>
+
+    <record id="product_hoodie" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_hoodie.png"/>
+    </record>
+
+    <record id="product_hoodie_superdeal" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_hoodie_superdeal.png"/>
+    </record>
+
+    <record id="product_tshirt" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_tshirt.png"/>
+    </record>
+
+    <record id="product_kapperl" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_kapperl.png"/>
+    </record>
+
+    <record id="product_bauchtasche" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_bauchtasche.png"/>
+    </record>
+
+    <record id="product_faecher" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_faecher.png"/>
+    </record>
+
+    <record id="product_schluesselanhaenger" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_schluesselanhaenger.png"/>
+    </record>
+
+    <record id="product_fahne" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_fahne.png"/>
+    </record>
+
+    <record id="product_beutel" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_beutel.png"/>
+    </record>
+
+    <record id="product_garderobe" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_garderobe.png"/>
+    </record>
+
+    <record id="product_ticket_weekend" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_ticket_weekend.png"/>
+    </record>
+
+    <record id="product_ticket_freitag" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_ticket_freitag.png"/>
+    </record>
+
+    <record id="product_ticket_samstag" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_ticket_samstag.png"/>
+    </record>
+
+    <record id="product_bier" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_bier.png"/>
+    </record>
+
+    <record id="product_spritzer" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_spritzer.png"/>
+    </record>
+
+    <record id="product_aperol" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_aperol.png"/>
+    </record>
+
+    <record id="product_soda" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_soda.png"/>
+    </record>
+
+    <record id="product_makava" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_makava.png"/>
+    </record>
+
+    <record id="product_cola" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_cola.png"/>
+    </record>
+
+    <record id="product_spezi" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_spezi.png"/>
+    </record>
+
+    <record id="product_redbull" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_redbull.png"/>
+    </record>
+
+    <record id="product_gatorade" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_gatorade.png"/>
+    </record>
+
+    <record id="product_vodka_bull" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_vodka_bull.png"/>
+    </record>
+
+    <record id="product_vodka_makava" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_vodka_makava.png"/>
+    </record>
+
+    <record id="product_vodka_gatorade" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_vodka_gatorade.png"/>
+    </record>
+
+    <record id="product_whiskey_cola" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_whiskey_cola.png"/>
+    </record>
+
+    <record id="product_bacardi_cola" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_bacardi_cola.png"/>
+    </record>
+
+    <record id="product_klopfer" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_klopfer.png"/>
+    </record>
+
+    <record id="product_jaegermeister" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_jaegermeister.png"/>
+    </record>
+
+    <record id="product_berliner_luft" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_berliner_luft.png"/>
+    </record>
+
+    <record id="product_flasche" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_flasche.png"/>
+    </record>
+
+    <record id="product_zigaretten" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_zigaretten.png"/>
+    </record>
+
+    <record id="product_pfand_becher" model="product.product">
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_pfand_becher.png"/>
+    </record>
+
+    <record id="pos_categ_essen" model="pos.category">
+        <field name="image_512" type="base64" file="havoc_pos/static/img/categories/pos_categ_essen.png"/>
+    </record>
+
+    <record id="pos_categ_getraenke" model="pos.category">
+        <field name="image_512" type="base64" file="havoc_pos/static/img/categories/pos_categ_getraenke.png"/>
+    </record>
+
+    <record id="pos_categ_merchandise" model="pos.category">
+        <field name="image_512" type="base64" file="havoc_pos/static/img/categories/pos_categ_merchandise.png"/>
+    </record>
+
+    <record id="pos_categ_garderobe" model="pos.category">
+        <field name="image_512" type="base64" file="havoc_pos/static/img/categories/pos_categ_garderobe.png"/>
+    </record>
+
+    <record id="pos_categ_abendkassa" model="pos.category">
+        <field name="image_512" type="base64" file="havoc_pos/static/img/categories/pos_categ_abendkassa.png"/>
+    </record>
+
+</odoo>
