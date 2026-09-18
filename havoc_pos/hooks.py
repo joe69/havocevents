@@ -11,7 +11,7 @@ _logger = logging.getLogger(__name__)
 
 MODULE = 'havoc_pos'
 
-FOOD_PRODUCTS = ('product_schnitzelsemmel', 'product_pommes')
+FOOD_PRODUCTS = ('product_pommes', 'product_chicken_nuggets', 'product_mozzarella_sticks')
 TICKET_PRODUCTS = ('product_ticket_weekend', 'product_ticket_freitag', 'product_ticket_samstag')
 POS_CONFIGS = (
     'pos_config_getraenke_1', 'pos_config_getraenke_2', 'pos_config_garderobe',

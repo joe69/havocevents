@@ -5,15 +5,6 @@
          Ticketsteuer wie Online-Tickets, sonst 20 %) setzt der post_init_hook. -->
 
     <!-- Seite 1: Essen -->
-    <record id="product_schnitzelsemmel" model="product.product">
-        <field name="name">Schnitzelsemmel</field>
-        <field name="type">consu</field>
-        <field name="list_price">6.00</field>
-        <field name="available_in_pos" eval="True"/>
-        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_essen')])]"/>
-        <field name="pos_sequence">10</field>
-    </record>
-
     <record id="product_pommes" model="product.product">
         <field name="name">Pommes</field>
         <field name="type">consu</field>
@@ -21,6 +12,28 @@
         <field name="available_in_pos" eval="True"/>
         <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_essen')])]"/>
         <field name="pos_sequence">20</field>
+    </record>
+
+    <record id="product_chicken_nuggets" model="product.product">
+        <field name="name">Chicken Nuggets</field>
+        <field name="type">consu</field>
+        <field name="list_price">5.00</field>
+        <field name="purchase_ok" eval="False"/>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_essen')])]"/>
+        <field name="pos_sequence">30</field>
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_chicken_nuggets.png"/>
+    </record>
+
+    <record id="product_mozzarella_sticks" model="product.product">
+        <field name="name">Mozzarella Sticks</field>
+        <field name="type">consu</field>
+        <field name="list_price">5.00</field>
+        <field name="purchase_ok" eval="False"/>
+        <field name="available_in_pos" eval="True"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('pos_categ_essen')])]"/>
+        <field name="pos_sequence">40</field>
+        <field name="image_1920" type="base64" file="havoc_pos/static/img/products/product_mozzarella_sticks.png"/>
     </record>
 
     <!-- Seite 2: Merch -->
