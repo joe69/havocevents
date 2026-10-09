@@ -44,17 +44,17 @@ $o-website-values-palettes: (
 );
 
 //------------------------------------------------------------------------------
-// Colors — Schwarz / Weiß / Rot (#c41818)
+// Colors — Warmschwarz / Creme / Gold (#c9a227) — Classic Colosseum
 //------------------------------------------------------------------------------
 
 $o-color-palettes: map-merge($o-color-palettes,
     (
         'havoc-1': (
-            'o-color-1':    #c41818, // Rot — Primary / Buttons / Akzente
+            'o-color-1':    #c9a227, // Gold — Primary / Buttons / Akzente
             'o-color-2':    #000000, // Schwarz — Secondary
-            'o-color-3':    #f2f2f2, // Hellgrau — helle Sektionen
+            'o-color-3':    #f3ecdc, // Creme — helle Sektionen
             'o-color-4':    #ffffff, // Weiß
-            'o-color-5':    #0a0a0a, // Fast-Schwarz — dunkle Sektionen
+            'o-color-5':    #0b0a08, // Warmschwarz — dunkle Sektionen
             'menu':         5,
             'footer':       5,
             'copyright':    5,

@@ -10,7 +10,7 @@
             <!-- 1. HERO / Banner: fixes Bild aus dem Modul (im Website-Editor austauschbar) -->
             <section class="th_hero">
                 <div class="oe_structure" id="oe_structure_theme_havoc_banner">
-                    <img src="/theme_havoc/static/src/img/banner.jpg" class="th_hero_img" alt="HAVOC Event Banner"/>
+                    <img src="/theme_havoc/static/src/img/banner.jpg" class="th_hero_img" alt="HAVOC Classic Colosseum – 23.01.2027 – Dom im Berg Graz"/>
                 </div>
             </section>
 
@@ -21,35 +21,31 @@
             <section class="th_welcome text-center py-5">
                 <div class="oe_structure" id="oe_structure_theme_havoc_welcome">
                     <div class="container">
-                        <h2 class="th_welcome_title mb-4">Welcome to the Tent of Torment</h2>
+                        <h2 class="th_welcome_title mb-4">Welcome to the Classic Colosseum</h2>
                         <p class="th_welcome_text mx-auto mb-5">
-                            Für ein Wochenende verwandeln wir ein Zirkuszelt in eine Harddance Location.<br/>
-                            Ganze 13 Stunden Festivalfeeling verteilt auf 2 Tagesevents mitten in Graz
-                            inkl. namhafter Besetzung aus Holland und unserer HAVOC Crew.
+                            HAVOC geht in die Arena: Eine Nacht lang wird der Dom im Berg zum Colosseum.<br/>
+                            Hardstyle- und Hardcore-Classics von 21:00 bis 06:00 Uhr, tief im Grazer Schloßberg,
+                            mit unserer HAVOC Crew und Gästen.
                         </p>
                         <div class="th_hero_meta text-white mb-5">
                             <i class="fa fa-calendar me-2" role="img" aria-label="Datum"/>
-                            <t t-out="event.date_begin" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'dd.MM.'}"/>
-                            <t t-if="event.date_begin.date() != event.date_end.date()">
-                                &#8211; <t t-out="event.date_end" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'dd.MM.yyyy'}"/>
+                            <t t-set="th_one_night" t-value="(event.date_end - event.date_begin).total_seconds() &lt; 86400"/>
+                            <t t-if="th_one_night">
+                                <t t-out="event.date_begin" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'dd.MM.yyyy'}"/>
+                                &#8226; <t t-out="event.date_begin" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'HH:mm'}"/>
+                                &#8211; <t t-out="event.date_end" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'HH:mm'}"/> Uhr
                             </t>
                             <t t-else="">
-                                <t t-out="event.date_begin" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'yyyy'}"/>
+                                <t t-out="event.date_begin" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'dd.MM.'}"/>
+                                &#8211; <t t-out="event.date_end" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'dd.MM.yyyy'}"/>
                             </t>
                         </div>
                         <div class="row justify-content-center g-4">
-                            <div class="col-12 col-md-5">
+                            <div class="col-12 col-md-7">
                                 <div class="th_day_card p-4 h-100">
-                                    <h3 class="h4 mb-2">Freitag :: Nightcraft [NL] + HAVOC Crew</h3>
-                                    <p class="th_day_genre mb-1">Raw &amp; Hardstyle Classics</p>
-                                    <p class="th_day_time mb-0">16:00 &#8211; 22:00 Uhr</p>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-5">
-                                <div class="th_day_card p-4 h-100">
-                                    <h3 class="h4 mb-2">Samstag :: Drokz [NL] + HAVOC Crew</h3>
-                                    <p class="th_day_genre mb-1">Hardcore, Early &amp; Millennium</p>
-                                    <p class="th_day_time mb-0">15:00 &#8211; 22:00 Uhr</p>
+                                    <h3 class="h4 mb-2">Samstag, 23.01.2027 :: HAVOC Crew + Gäste</h3>
+                                    <p class="th_day_genre mb-1">Hardstyle &amp; Hardcore Classics</p>
+                                    <p class="th_day_time mb-0">21:00 &#8211; 06:00 Uhr &#8226; Dom im Berg</p>
                                 </div>
                             </div>
                         </div>
@@ -66,10 +62,8 @@
                     <div class="text-center">
                         <div class="oe_structure" id="oe_structure_theme_havoc_ticket_note">
                             <p class="th_ticket_note mx-auto mb-5">
-                                <strong>Die Tickets sind stark limitiert &#8211; weitere Kapazitäten können wir nicht schaffen!</strong><br/>
-                                Es gibt jeweils ein Tagesticket für Freitag und Samstag &#8211;
-                                oder das Wochenend-Ticket für beide Tage.
-                                Sichere dir deine Tickets so schnell wie möglich:
+                                <strong>Die Tickets sind stark limitiert &#8211; der Dom im Berg hat nur eine Arena!</strong><br/>
+                                Sichere dir dein Ticket so schnell wie möglich:
                                 Ausverkauft ist ausverkauft.
                             </p>
                         </div>
@@ -108,9 +102,9 @@
                 <div class="oe_structure" id="oe_structure_theme_havoc_location">
                     <div class="container">
                         <h2 class="mb-4">Location</h2>
-                        <p class="th_location_name mb-1">Center West</p>
-                        <p class="th_location_addr mb-4">Weblinger Kreisverkehr &#8226; Graz</p>
-                        <a href="https://maps.app.goo.gl/CBAkT7trsTqquciA6" target="_blank" rel="noopener" class="btn btn-primary px-5">
+                        <p class="th_location_name mb-1">Dom im Berg</p>
+                        <p class="th_location_addr mb-4">Schloßbergplatz 1 &#8226; 8010 Graz</p>
+                        <a href="https://www.google.com/maps/search/?api=1&amp;query=Dom+im+Berg+Schlo%C3%9Fbergplatz+1+Graz" target="_blank" rel="noopener" class="btn btn-primary px-5">
                             <i class="fa fa-map-marker me-2" role="img" aria-label="Karte"/>Route planen
                         </a>
                     </div>

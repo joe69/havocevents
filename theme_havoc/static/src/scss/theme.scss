@@ -54,9 +54,9 @@ header#top {
 
 .o_wereg_confirmed {
     max-width: 720px;
-    background-color: #141414;
-    border: 1px solid #2c2c2c;
-    border-top: 4px solid #c41818;
+    background-color: #16130e;
+    border: 1px solid #2f281c;
+    border-top: 4px solid #c9a227;
     padding: 2.5rem;
 
     h1 {
@@ -75,19 +75,23 @@ header#top {
 //------------------------------------------------------------------------------
 
 .th_onepager {
-    background-color: #0a0a0a;
+    background-color: #0b0a08;
 }
 
-// Banner: echtes <img>, Höhe kommt vom Bild selbst — mittig, Schwarz links/rechts
+// Banner: echtes <img>, Höhe kommt vom Bild selbst — mittig; der Hintergrund
+// nimmt die Sepia-Farbe des Artworks auf, damit es links/rechts nahtlos ausläuft
 .th_hero {
-    background-color: #0a0a0a;
+    // Verlauf = gemessene Randfarben des Artworks (links dunkler, rechts heller)
+    background-color: #efd9a0;
+    background-image: linear-gradient(90deg, #e9cd8d 0%, #efd9a0 50%, #f8eabc 100%);
     text-align: center;
+    border-bottom: 4px solid #c9a227;
 
     .th_hero_img,
     img {
         display: block;
         width: 100%;
-        max-width: 1024px;
+        max-width: 960px;
         height: auto;
         margin: 0 auto;
     }
@@ -100,40 +104,40 @@ header#top {
 }
 
 .th_welcome {
-    background-color: #0a0a0a;
-    border-bottom: 1px solid #2c2c2c;
+    background-color: #0b0a08;
+    border-bottom: 1px solid #2f281c;
 
     .th_welcome_title {
-        color: #c41818;
+        color: #c9a227;
         letter-spacing: .06em;
     }
 
     .th_welcome_text {
         max-width: 46rem;
         font-size: 1.15rem;
-        color: #f2f2f2;
+        color: #f0e9d8;
     }
 
     .th_day_card {
-        background-color: #141414;
-        border: 1px solid #2c2c2c;
-        border-top: 4px solid #c41818;
+        background-color: #16130e;
+        border: 1px solid #2f281c;
+        border-top: 4px solid #c9a227;
 
         .th_day_genre {
             text-transform: uppercase;
             letter-spacing: .06em;
-            color: #c41818;
+            color: #c9a227;
             font-weight: 600;
         }
 
         .th_day_time {
-            color: #9a9a9a;
+            color: #a89f8c;
         }
     }
 }
 
 .th_tickets {
-    background-color: #0a0a0a;
+    background-color: #0b0a08;
 
     h2 {
         letter-spacing: .06em;
@@ -143,15 +147,15 @@ header#top {
             display: block;
             width: 4rem;
             height: 4px;
-            background-color: #c41818;
+            background-color: #c9a227;
             margin: 1rem auto 0;
         }
     }
 }
 
 .th_ticket_card {
-    background-color: #141414;
-    border: 1px solid #2c2c2c;
+    background-color: #16130e;
+    border: 1px solid #2f281c;
     transition: border-color .15s ease, transform .15s ease;
 
     &[role='button'] {
@@ -159,7 +163,7 @@ header#top {
     }
 
     &:hover {
-        border-color: #c41818;
+        border-color: #c9a227;
         transform: translateY(-3px);
     }
 
@@ -167,30 +171,30 @@ header#top {
         font-family: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
         font-size: 2.5rem;
         font-weight: 800;
-        color: #c41818;
+        color: #c9a227;
         line-height: 1;
     }
 
     .text-muted {
-        color: #9a9a9a !important;
+        color: #a89f8c !important;
     }
 }
 
 .th_ticket_note {
     max-width: 40rem;
     font-size: 1.15rem;
-    color: #f2f2f2;
+    color: #f0e9d8;
 
     strong {
-        color: #c41818;
+        color: #c9a227;
         text-transform: uppercase;
         letter-spacing: .04em;
     }
 }
 
 .th_infos {
-    background-color: #101010;
-    border-top: 1px solid #2c2c2c;
+    background-color: #110e0a;
+    border-top: 1px solid #2f281c;
 
     h2 {
         letter-spacing: .06em;
@@ -200,7 +204,7 @@ header#top {
             display: block;
             width: 4rem;
             height: 4px;
-            background-color: #c41818;
+            background-color: #c9a227;
             margin: 1rem auto 0;
         }
     }
@@ -216,7 +220,7 @@ header#top {
 
     .th_location_addr {
         font-size: 1.15rem;
-        color: #9a9a9a;
+        color: #a89f8c;
         text-transform: uppercase;
         letter-spacing: .06em;
     }
@@ -237,7 +241,7 @@ header#top {
     max-width: 100%;
 }
 
-// Event-Karten: kantig, klare Kante, roter Hover-Akzent
+// Event-Karten: kantig, klare Kante, goldener Hover-Akzent
 .o_wevent_events_list {
     article.card,
     .card {
@@ -246,17 +250,17 @@ header#top {
         transition: box-shadow .15s ease, border-color .15s ease;
 
         &:hover {
-            border-color: #c41818;
-            box-shadow: 0 0 0 1px #c41818;
+            border-color: #c9a227;
+            box-shadow: 0 0 0 1px #c9a227;
         }
     }
 }
 
-// Datums-Badge auf den Karten in Rot
+// Datums-Badge auf den Karten in Gold
 .o_wevent_event_date {
     .o_wevent_event_month {
-        background-color: #c41818 !important;
-        color: #ffffff !important;
+        background-color: #c9a227 !important;
+        color: #1a1408 !important;
     }
     .o_wevent_event_day {
         background-color: #000000 !important;
@@ -274,12 +278,12 @@ header#top {
 
 // Cover: dunkel halten, damit weiße Schrift immer lesbar ist
 .o_wevent_event_main_cover {
-    background-color: #0a0a0a;
+    background-color: #0b0a08;
 }
 
 .o_wevent_event {
-    background-color: #0a0a0a;
-    color: #f2f2f2;
+    background-color: #0b0a08;
+    color: #f0e9d8;
 
     h1, h2, h3, h4, h5, h6,
     .h1, .h2, .h3, .h4, .h5, .h6 {
@@ -290,7 +294,7 @@ header#top {
         color: #ffffff;
 
         &:hover {
-            color: #c41818;
+            color: #c9a227;
         }
     }
 
@@ -301,27 +305,27 @@ header#top {
 
     // Event-Untermenü (Intro / Ort / Anmeldung) dunkel
     nav.navbar {
-        background-color: #0a0a0a !important;
+        background-color: #0b0a08 !important;
     }
 
     // Karten & Sidebar-Blöcke dunkel mit dezenter Kante
     .card,
     .o_wevent_sidebar_block,
     .o_wevent_bordered_block {
-        background-color: #141414;
-        border-color: #2c2c2c;
-        color: #f2f2f2;
+        background-color: #16130e;
+        border-color: #2f281c;
+        color: #f0e9d8;
     }
 
     hr {
-        border-color: #2c2c2c;
+        border-color: #2f281c;
     }
 
-    // Ticket-Block hervorheben: rote Kante, damit der Kauf sofort auffällt
+    // Ticket-Block hervorheben: goldene Kante, damit der Kauf sofort auffällt
     .o_wevent_tickets,
     #o_wevent_tickets {
-        border: 2px solid #c41818;
-        background-color: #141414;
+        border: 2px solid #c9a227;
+        background-color: #16130e;
         padding: 1.5rem;
     }
 }
@@ -334,7 +338,7 @@ header#top {
         letter-spacing: .03em;
     }
 
-    // "Jetzt registrieren"-/Kauf-Button groß und rot
+    // "Jetzt registrieren"-/Kauf-Button groß und golden
     .btn-primary {
         font-size: 1.15rem;
         padding: .8rem 2.5rem;
@@ -367,57 +371,57 @@ header#top {
 // Warenkorb, Adresse, Zahlung, Bestellbestätigung
 //------------------------------------------------------------------------------
 
-// Fortschrittsanzeige im Checkout in Rot statt Odoo-Blau
+// Fortschrittsanzeige im Checkout in Gold statt Odoo-Blau
 .o_wizard_step_active {
-    color: #c41818 !important;
+    color: #c9a227 !important;
 }
 
 // Ganzes Frontend dunkel — Body, Checkout, Event-Formulare, Popups
 body {
-    background-color: #0a0a0a;
+    background-color: #0b0a08;
 }
 
 #wrapwrap {
     // Bootstrap-5.3-Variablen: färben Karten, Tabellen und Inputs dunkel
-    --bs-body-bg: #0a0a0a;
-    --bs-body-bg-rgb: 10, 10, 10;
-    --bs-body-color: #f2f2f2;
-    --bs-body-color-rgb: 242, 242, 242;
-    --bs-border-color: #2c2c2c;
+    --bs-body-bg: #0b0a08;
+    --bs-body-bg-rgb: 11, 10, 8;
+    --bs-body-color: #f0e9d8;
+    --bs-body-color-rgb: 240, 233, 216;
+    --bs-border-color: #2f281c;
     --bs-emphasis-color: #ffffff;
-    --bs-secondary-bg: #141414;
-    --bs-secondary-bg-rgb: 20, 20, 20;
-    --bs-secondary-color: rgba(242, 242, 242, .7);
-    --bs-tertiary-bg: #141414;
-    --bs-tertiary-bg-rgb: 20, 20, 20;
-    --bs-tertiary-color: rgba(242, 242, 242, .6);
-    --bs-white-rgb: 20, 20, 20;
-    --bs-card-bg: #141414;
-    --bs-card-color: #f2f2f2;
-    --bs-card-border-color: #2c2c2c;
-    --bs-list-group-bg: #141414;
-    --bs-list-group-color: #f2f2f2;
-    --bs-list-group-border-color: #2c2c2c;
+    --bs-secondary-bg: #16130e;
+    --bs-secondary-bg-rgb: 22, 19, 14;
+    --bs-secondary-color: rgba(240, 233, 216, .7);
+    --bs-tertiary-bg: #16130e;
+    --bs-tertiary-bg-rgb: 22, 19, 14;
+    --bs-tertiary-color: rgba(240, 233, 216, .6);
+    --bs-white-rgb: 22, 19, 14;
+    --bs-card-bg: #16130e;
+    --bs-card-color: #f0e9d8;
+    --bs-card-border-color: #2f281c;
+    --bs-list-group-bg: #16130e;
+    --bs-list-group-color: #f0e9d8;
+    --bs-list-group-border-color: #2f281c;
 
     // Odoo 19 kompiliert Bootstrap OHNE "bs-"-Präfix — dieselben Variablen nochmal unpräfixiert
-    --body-bg: #0a0a0a;
-    --body-bg-rgb: 10, 10, 10;
-    --body-color: #f2f2f2;
-    --body-color-rgb: 242, 242, 242;
-    --border-color: #2c2c2c;
-    --o-border-color: #2c2c2c;
+    --body-bg: #0b0a08;
+    --body-bg-rgb: 11, 10, 8;
+    --body-color: #f0e9d8;
+    --body-color-rgb: 240, 233, 216;
+    --border-color: #2f281c;
+    --o-border-color: #2f281c;
     --emphasis-color: #ffffff;
-    --secondary-bg: #141414;
-    --secondary-bg-rgb: 20, 20, 20;
-    --secondary-color: rgba(242, 242, 242, .7);
-    --tertiary-bg: #141414;
-    --tertiary-bg-rgb: 20, 20, 20;
-    --tertiary-color: rgba(242, 242, 242, .6);
-    --white-rgb: 20, 20, 20;
-    --light-rgb: 20, 20, 20;
+    --secondary-bg: #16130e;
+    --secondary-bg-rgb: 22, 19, 14;
+    --secondary-color: rgba(240, 233, 216, .7);
+    --tertiary-bg: #16130e;
+    --tertiary-bg-rgb: 22, 19, 14;
+    --tertiary-color: rgba(240, 233, 216, .6);
+    --white-rgb: 22, 19, 14;
+    --light-rgb: 22, 19, 14;
 
-    background-color: #0a0a0a;
-    color: #f2f2f2;
+    background-color: #0b0a08;
+    color: #f0e9d8;
 
     h1, h2, h3, h4, h5, h6 {
         color: #ffffff;
@@ -427,7 +431,7 @@ body {
         color: #ffffff;
 
         &:hover {
-            color: #c41818;
+            color: #c9a227;
         }
     }
 
@@ -435,50 +439,50 @@ body {
     // (rgba(255,255,255,.9)) — das war das "Hellgrau" im Checkout
     .card-body {
         --background-color: transparent;
-        --color: #f2f2f2;
+        --color: #f0e9d8;
         background-color: transparent !important;
-        color: #f2f2f2 !important;
+        color: #f0e9d8 !important;
     }
 
     .card,
     .o_total_card {
         // Kartenvariablen sitzen am Element selbst (--card-bg: #fff) — hier überschreiben
-        --card-bg: #141414;
-        --card-color: #f2f2f2;
-        --card-border-color: #2c2c2c;
-        --card-cap-bg: #1e1e1e;
+        --card-bg: #16130e;
+        --card-color: #f0e9d8;
+        --card-border-color: #2f281c;
+        --card-cap-bg: #1f1a12;
         border-radius: 0;
-        background-color: #141414 !important;
-        border-color: #2c2c2c;
-        color: #f2f2f2;
+        background-color: #16130e !important;
+        border-color: #2f281c;
+        color: #f0e9d8;
     }
 
     // Zahlungsmethoden-Auswahl (Karte / PayPal / EPS / Klarna)
     .list-group-item {
-        --list-group-bg: #141414;
-        --list-group-color: #f2f2f2;
-        --list-group-border-color: #2c2c2c;
-        background-color: #141414 !important;
-        color: #f2f2f2;
-        border-color: #2c2c2c;
+        --list-group-bg: #16130e;
+        --list-group-color: #f0e9d8;
+        --list-group-border-color: #2f281c;
+        background-color: #16130e !important;
+        color: #f0e9d8;
+        border-color: #2f281c;
     }
 
     .text-bg-light {
-        background-color: #1e1e1e !important;
-        color: #f2f2f2 !important;
+        background-color: #1f1a12 !important;
+        color: #f0e9d8 !important;
     }
 
     // Paletten-Hintergrund-Utilities (weiß/hellgrau) → dunkel zwingen
     .bg-o-color-3, .bg-o-color-4 {
-        background-color: #141414 !important;
-        color: #f2f2f2 !important;
+        background-color: #16130e !important;
+        color: #f0e9d8 !important;
     }
 
     // Odoo-Farbkombos: cc1 (weiß) und cc2 (hellgrau aus der Palette) werden
     // im Checkout für Bestellübersicht/Adressblock verwendet → dunkel zwingen
     .o_cc1, .o_cc2 {
-        background-color: #141414 !important;
-        color: #f2f2f2 !important;
+        background-color: #16130e !important;
+        color: #f0e9d8 !important;
 
         h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
             color: #ffffff !important;
@@ -488,73 +492,73 @@ body {
             color: #ffffff;
 
             &:hover {
-                color: #c41818;
+                color: #c9a227;
             }
         }
     }
 
     .bg-white, .bg-light, .bg-100, .bg-200,
     .bg-body, .bg-body-secondary, .bg-body-tertiary {
-        background-color: #141414 !important;
-        color: #f2f2f2;
+        background-color: #16130e !important;
+        color: #f0e9d8;
     }
 
     .text-muted, .text-600, .text-700 {
-        color: #9a9a9a !important;
+        color: #a89f8c !important;
     }
 
     .border, .border-top, .border-bottom, .border-start, .border-end {
-        border-color: #2c2c2c !important;
+        border-color: #2f281c !important;
     }
 
     hr {
-        border-color: #2c2c2c;
+        border-color: #2f281c;
     }
 
     table, .table {
-        color: #f2f2f2;
+        color: #f0e9d8;
         --bs-table-bg: transparent;
-        --bs-table-color: #f2f2f2;
-        --bs-table-border-color: #2c2c2c;
+        --bs-table-color: #f0e9d8;
+        --bs-table-border-color: #2f281c;
     }
 
-    // Helle Buttons (Drucken, Kalender) → dunkle Ghost-Buttons mit rotem Hover
+    // Helle Buttons (Drucken, Kalender) → dunkle Ghost-Buttons mit goldenem Hover
     .btn-light, .btn-outline-secondary {
-        --bs-btn-bg: #141414;
-        --bs-btn-color: #f2f2f2;
-        --bs-btn-border-color: #2c2c2c;
-        --bs-btn-hover-bg: #1e1e1e;
+        --bs-btn-bg: #16130e;
+        --bs-btn-color: #f0e9d8;
+        --bs-btn-border-color: #2f281c;
+        --bs-btn-hover-bg: #1f1a12;
         --bs-btn-hover-color: #ffffff;
-        --bs-btn-hover-border-color: #c41818;
-        --bs-btn-active-bg: #1e1e1e;
+        --bs-btn-hover-border-color: #c9a227;
+        --bs-btn-active-bg: #1f1a12;
         --bs-btn-active-color: #ffffff;
     }
 
-    // Formulare (Adresse, Gutschein): dunkle Inputs, roter Fokus
+    // Formulare (Adresse, Gutschein): dunkle Inputs, goldener Fokus
     .form-control, .form-select {
-        background-color: #141414;
-        border-color: #2c2c2c;
-        color: #f2f2f2;
+        background-color: #16130e;
+        border-color: #2f281c;
+        color: #f0e9d8;
 
         &::placeholder {
-            color: #777777;
+            color: #7d7462;
         }
 
         &:focus {
-            background-color: #141414;
+            background-color: #16130e;
             color: #ffffff;
-            border-color: #c41818;
+            border-color: #c9a227;
             box-shadow: none;
         }
     }
 
     .form-check-input {
-        background-color: #141414;
-        border-color: #2c2c2c;
+        background-color: #16130e;
+        border-color: #2f281c;
 
         &:checked {
-            background-color: #c41818;
-            border-color: #c41818;
+            background-color: #c9a227;
+            border-color: #c9a227;
         }
     }
 
@@ -567,9 +571,9 @@ body {
 
     // Modals (Ticket-Popup) dunkel, Schließen-X auf dunklem Grund sichtbar
     .modal-content {
-        background-color: #141414;
-        color: #f2f2f2;
-        border: 1px solid #2c2c2c;
+        background-color: #16130e;
+        color: #f0e9d8;
+        border: 1px solid #2f281c;
     }
 
     .btn-close {

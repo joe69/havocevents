@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Havoc Theme',
-    'description': 'Schwarz/Weiß Event-Theme für HAVOC — Ticketverkauf über Odoo Events.',
-    'summary': 'Black & white event theme with red accents for havoc.events',
+    'description': 'Dunkles Event-Theme für HAVOC mit Gold-Akzenten (Classic Colosseum) — Ticketverkauf über Odoo Events.',
+    'summary': 'Dark event theme with gold accents for havoc.events',
     'category': 'Theme/Entertainment',
     'version': '19.0.1.0.0',
     'author': 'wegot.vision',
