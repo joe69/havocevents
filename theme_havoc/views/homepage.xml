@@ -63,7 +63,7 @@
                     <h2 class="text-center mb-5">Tickets</h2>
                     <t t-set="tickets" t-value="event.event_ticket_ids.filtered(lambda t: not t.is_expired)"/>
                     <!-- Hinweis über den Ticketkarten -->
-                    <div class="text-center">
+                    <div t-if="tickets" class="text-center">
                         <div class="oe_structure" id="oe_structure_theme_havoc_ticket_note">
                             <p class="th_ticket_note mx-auto mb-5">
                                 <strong>Die Tickets sind stark limitiert &#8211; der Dom im Berg hat nur eine Arena!</strong><br/>
@@ -94,9 +94,16 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Noch keine Tickets angelegt: Ankündigung statt "Anmeldung geschlossen" -->
+                    <div t-if="not event.event_ticket_ids" class="text-center">
+                        <div class="th_ticket_soon mx-auto p-4">
+                            <p class="th_ticket_soon_title mb-1">Tickets in Kürze erhältlich</p>
+                            <p class="mb-0">Der Vorverkauf startet bald &#8211; hier auf havoc.events.</p>
+                        </div>
+                    </div>
                     <!-- Statusmeldung (Ausverkauft / Verkauf startet am …), falls Verkauf zu -->
-                    <div class="text-center">
-                        <t t-if="not event.event_registrations_open" t-call="website_event.registration_template"/>
+                    <div t-elif="not event.event_registrations_open" class="text-center">
+                        <t t-call="website_event.registration_template"/>
                     </div>
                 </div>
             </section>

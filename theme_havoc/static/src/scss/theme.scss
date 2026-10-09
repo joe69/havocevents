@@ -181,6 +181,24 @@ header#top {
     }
 }
 
+// Noch keine Tickets: Ankündigungsbox
+.th_ticket_soon {
+    max-width: 36rem;
+    background-color: #16130e;
+    border: 2px solid #c9a227;
+    color: #f0e9d8;
+    font-size: 1.1rem;
+
+    .th_ticket_soon_title {
+        font-family: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
+        font-size: 2rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: .04em;
+        color: #c9a227;
+    }
+}
+
 .th_ticket_note {
     max-width: 40rem;
     font-size: 1.15rem;
