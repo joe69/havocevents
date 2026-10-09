@@ -9,6 +9,7 @@
     'license': 'LGPL-3',
     'depends': [
         'website_event_sale',
+        'havoc_ticket_fee',  # Zusatzpakete (VIP) in der Ticketanzeige
     ],
     'data': [
         'data/website.xml',

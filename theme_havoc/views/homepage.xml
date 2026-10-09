@@ -80,12 +80,16 @@
                                 t-att-data-bs-toggle="event.event_registrations_open and 'modal' or None"
                                 t-attf-data-bs-target="#modal_{{'slot' if event.is_multi_slots else 'ticket'}}_registration">
                                 <h3 t-field="ticket.name" class="h4"/>
+                                <!-- Preis brutto inkl. Zusatzpaket (VIP: Ticket + Package) -->
                                 <div class="th_ticket_price my-3">
-                                    <t t-if="ticket.price">
-                                        <span t-out="ticket.price" t-options="{'widget': 'monetary', 'display_currency': ticket.currency_id}"/>
+                                    <t t-if="ticket.price_reduce_taxinc">
+                                        <span t-out="ticket.price_reduce_taxinc" t-options="{'widget': 'monetary', 'display_currency': ticket.currency_id}"/>
                                     </t>
                                     <t t-else="">Gratis</t>
                                 </div>
+                                <p t-if="ticket.havoc_package_product_id" class="th_ticket_package small mb-2">
+                                    inkl. <t t-out="ticket.havoc_package_product_id.sudo().display_name"/>
+                                </p>
                                 <p t-if="ticket.description" t-field="ticket.description" class="text-muted small flex-grow-1"/>
                                 <div t-else="" class="flex-grow-1"/>
                                 <div t-if="ticket.seats_limited and not ticket.seats_available" class="alert alert-danger py-1 small mb-0 mt-3">

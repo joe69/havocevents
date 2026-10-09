@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Havoc Ticket-Verwaltungsgebühr',
-    'summary': 'Prozentuale Verwaltungsgebühr auf Event-Tickets im Warenkorb',
+    'summary': 'Verwaltungsgebühr und Zusatzpakete (z. B. VIP-Package) für Event-Tickets',
     'description': 'Schlägt beim Ticketkauf automatisch eine einstellbare '
                    'prozentuale Verwaltungsgebühr auf Event-Tickets auf.',
     'category': 'Website/Website',
@@ -14,6 +14,7 @@
     'data': [
         'data/product_data.xml',
         'views/res_config_settings_views.xml',
+        'views/event_ticket_views.xml',
         'report/ticket_report_templates.xml',
     ],
 }

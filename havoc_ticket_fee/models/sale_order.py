@@ -6,6 +6,14 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     is_havoc_fee = fields.Boolean(string='Ist Verwaltungsgebühr', default=False)
+    is_havoc_package = fields.Boolean(string='Ist Zusatzpaket', default=False)
+    havoc_package_ticket_line_id = fields.Many2one(
+        'sale.order.line', string='Paket gehört zu', ondelete='cascade', index='btree_not_null')
+
+    def _is_sellable(self):
+        # Paket- und Gebührenzeilen: Menge im Warenkorb nicht selbst änderbar,
+        # sie folgen automatisch der Ticketzeile
+        return super()._is_sellable() and not (self.is_havoc_package or self.is_havoc_fee)
 
     def _compute_price_unit(self):
         """Gebührenzeilen vom Preislisten-Neuberechnen ausnehmen — der Betrag
@@ -28,13 +36,47 @@ class SaleOrder(models.Model):
         self._havoc_update_fee_line()
         return res
 
-    def _havoc_update_fee_line(self):
-        """Hält die Gebührenzeile aktuell: X% des Ticket-Bruttopreises (das,
-        was der Käufer sieht). Damit der angezeigte Gebührenbetrag exakt
-        stimmt, muss die Steuer am Gebühren-Produkt "im Preis enthalten" sein.
-        Wird nach jeder Warenkorb-Änderung neu berechnet — die Zeile lässt
-        sich dadurch auch nicht dauerhaft aus dem Warenkorb löschen."""
+    def _havoc_sync_package_lines(self):
+        """Zusatzpakete (z. B. VIP-Package) synchron zu den Ticketzeilen halten:
+        je Ticketzeile mit Paket genau eine Paketzeile mit derselben Menge;
+        verwaiste Paketzeilen werden entfernt."""
         self.ensure_one()
+        package_lines = self.order_line.filtered('is_havoc_package')
+        ticket_lines = self.order_line.filtered(
+            lambda l: l.event_ticket_id.havoc_package_product_id
+            and not l.is_havoc_fee and not l.is_havoc_package)
+        keep = self.env['sale.order.line']
+        for ticket_line in ticket_lines:
+            product = ticket_line.event_ticket_id.sudo().havoc_package_product_id
+            line = package_lines.filtered(
+                lambda l: l.havoc_package_ticket_line_id == ticket_line)[:1]
+            name = '%s – zu %s' % (product.display_name, ticket_line.event_ticket_id.display_name)
+            if line and line.product_id == product:
+                if line.product_uom_qty != ticket_line.product_uom_qty:
+                    line.product_uom_qty = ticket_line.product_uom_qty
+            else:
+                line.unlink()
+                line = self.env['sale.order.line'].sudo().create({
+                    'order_id': self.id,
+                    'product_id': product.id,
+                    'product_uom_qty': ticket_line.product_uom_qty,
+                    'is_havoc_package': True,
+                    'havoc_package_ticket_line_id': ticket_line.id,
+                    'name': name,
+                    'sequence': ticket_line.sequence,
+                })
+            keep |= line
+        (package_lines - keep).exists().unlink()
+
+    def _havoc_update_fee_line(self):
+        """Hält Zusatzpakete und die Gebührenzeile aktuell: X% des
+        Brutto-Ticketpreises inkl. Zusatzpaketen (das, was der Käufer sieht).
+        Damit der angezeigte Gebührenbetrag exakt stimmt, muss die Steuer am
+        Gebühren-Produkt "im Preis enthalten" sein. Wird nach jeder
+        Warenkorb-Änderung neu berechnet — Gebühr und Pakete lassen sich
+        dadurch auch nicht dauerhaft aus dem Warenkorb löschen."""
+        self.ensure_one()
+        self._havoc_sync_package_lines()
         get_param = self.env['ir.config_parameter'].sudo().get_param
         try:
             percent = float(get_param('havoc_ticket_fee.percent', '0') or '0')
@@ -43,8 +85,9 @@ class SaleOrder(models.Model):
 
         fee_lines = self.order_line.filtered('is_havoc_fee')
         ticket_lines = self.order_line.filtered(
-            lambda l: l.event_ticket_id and not l.is_havoc_fee)
-        base = sum(ticket_lines.mapped('price_total'))
+            lambda l: l.event_ticket_id and not l.is_havoc_fee and not l.is_havoc_package)
+        package_lines = self.order_line.filtered('is_havoc_package')
+        base = sum((ticket_lines | package_lines).mapped('price_total'))
         amount = self.currency_id.round(base * percent / 100.0)
 
         if percent <= 0 or not ticket_lines or self.currency_id.is_zero(amount):
