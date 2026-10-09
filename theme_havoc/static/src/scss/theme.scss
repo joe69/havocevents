@@ -78,20 +78,21 @@ header#top {
     background-color: #0b0a08;
 }
 
-// Banner: echtes <img>, Höhe kommt vom Bild selbst — mittig; der Hintergrund
-// nimmt die Sepia-Farbe des Artworks auf, damit es links/rechts nahtlos ausläuft
+// Banner: volle Breite, Höhe kommt vom Bild (Desktop breit und flach, Handy hoher Ausschnitt)
 .th_hero {
-    // Verlauf = gemessene Randfarben des Artworks (links dunkler, rechts heller)
     background-color: #efd9a0;
-    background-image: linear-gradient(90deg, #e9cd8d 0%, #efd9a0 50%, #f8eabc 100%);
     text-align: center;
     border-bottom: 4px solid #c9a227;
+
+    picture {
+        display: block;
+    }
 
     .th_hero_img,
     img {
         display: block;
         width: 100%;
-        max-width: 960px;
+        max-width: none;
         height: auto;
         margin: 0 auto;
     }

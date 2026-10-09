@@ -10,7 +10,11 @@
             <!-- 1. HERO / Banner: fixes Bild aus dem Modul (im Website-Editor austauschbar) -->
             <section class="th_hero">
                 <div class="oe_structure" id="oe_structure_theme_havoc_banner">
-                    <img src="/theme_havoc/static/src/img/banner.jpg" class="th_hero_img" alt="HAVOC Classic Colosseum – 23.01.2027 – Dom im Berg Graz"/>
+                    <!-- Desktop: breites, flaches Banner über die volle Breite; Handy: hoher Ausschnitt -->
+                    <picture>
+                        <source media="(max-width: 767px)" srcset="/theme_havoc/static/src/img/banner_mobile.jpg"/>
+                        <img src="/theme_havoc/static/src/img/banner.jpg" class="th_hero_img" alt="HAVOC Classic Colosseum – 23.01.2027 – Dom im Berg Graz"/>
+                    </picture>
                 </div>
             </section>
 
