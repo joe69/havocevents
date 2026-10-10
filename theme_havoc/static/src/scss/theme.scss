@@ -631,3 +631,56 @@ body {
 .th_footer_note {
     color: #a89f8c;
 }
+
+// Verkaufsphasen auf den Ticketkarten
+.th_ticket_card {
+    .th_ticket_desc {
+        color: #c9a227;
+        text-transform: uppercase;
+        letter-spacing: .05em;
+        font-weight: 600;
+    }
+
+    .th_ticket_state {
+        font-family: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .06em;
+        color: #a89f8c;
+    }
+
+    .th_ticket_until {
+        color: #a89f8c;
+    }
+
+    &.th_ticket_active {
+        border-color: #c9a227;
+
+        .th_ticket_state {
+            color: #c9a227;
+        }
+    }
+
+    &.th_ticket_soon_card {
+        opacity: .55;
+
+        &:hover {
+            border-color: #2f281c;
+            transform: none;
+        }
+    }
+
+    &.th_ticket_done {
+        opacity: .4;
+
+        .th_ticket_price {
+            text-decoration: line-through;
+        }
+
+        &:hover {
+            border-color: #2f281c;
+            transform: none;
+        }
+    }
+}

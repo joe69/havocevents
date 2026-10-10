@@ -8,4 +8,11 @@
         </xpath>
     </template>
 
+    <!-- Ticket-Popup: Phasen, die noch auf die vorherige warten, nicht als "Sold Out" zeigen, sondern ausblenden -->
+    <template id="modal_ticket_registration_havoc_phases" inherit_id="website_event.modal_ticket_registration">
+        <xpath expr="//form[@id='registration_form']//t[@t-set='tickets']" position="attributes">
+            <attribute name="t-value">event.event_ticket_ids.filtered(lambda ticket: not ticket.is_expired and not ticket.havoc_phase_waiting)</attribute>
+        </xpath>
+    </template>
+
 </odoo>

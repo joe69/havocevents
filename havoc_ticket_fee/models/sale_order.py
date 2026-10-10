@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import fields, models
+from odoo import _, fields, models
 
 
 class SaleOrderLine(models.Model):
@@ -25,6 +25,19 @@ class SaleOrderLine(models.Model):
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
+
+    def _verify_updated_quantity(self, order_line, product_id, new_qty, uom_id, *, event_ticket_id=False, **kwargs):
+        # Odoo prüft hier nur freie Plätze. Zusätzlich: Tickets außerhalb ihrer
+        # Verkaufsphase (noch nicht gestartet, abgelaufen, wartet auf Vorphase)
+        # dürfen nicht neu in den Warenkorb.
+        new_qty, warning = super()._verify_updated_quantity(
+            order_line, product_id, new_qty, uom_id, event_ticket_id=event_ticket_id, **kwargs)
+        if event_ticket_id:
+            ticket = self.env['event.event.ticket'].browse(event_ticket_id).exists()
+            existing_qty = order_line.product_uom_qty if order_line else 0
+            if ticket and not ticket.sale_available and new_qty > existing_qty:
+                return existing_qty, _('Das Ticket "%s" ist derzeit nicht erhältlich.', ticket.name)
+        return new_qty, warning
 
     def _cart_add(self, *args, **kwargs):
         res = super()._cart_add(*args, **kwargs)

@@ -62,7 +62,8 @@
             <section id="tickets" class="th_tickets py-5">
                 <div class="container">
                     <h2 class="text-center mb-5">Tickets</h2>
-                    <t t-set="tickets" t-value="event.event_ticket_ids.filtered(lambda t: not t.is_expired)"/>
+                    <!-- Aktive/kommende Tickets + vergangene Verkaufsphasen (damit Early/Normal/Late als Kette sichtbar bleiben) -->
+                    <t t-set="tickets" t-value="event.event_ticket_ids.filtered(lambda t: not t.is_expired or t in event.event_ticket_ids.havoc_previous_phase_id)"/>
                     <!-- Hinweis über den Ticketkarten -->
                     <div t-if="tickets" class="text-center">
                         <div class="oe_structure" id="oe_structure_theme_havoc_ticket_note">
@@ -74,12 +75,15 @@
                         </div>
                     </div>
                     <div t-if="tickets" class="row justify-content-center g-4 mb-4">
-                        <div t-foreach="tickets" t-as="ticket" class="col-12 col-md-6 col-lg-4">
-                            <!-- Karte anklicken öffnet das Ticket-Popup (Mengenauswahl) -->
-                            <div class="th_ticket_card h-100 d-flex flex-column p-4"
-                                t-att-role="event.event_registrations_open and 'button' or None"
-                                t-att-data-bs-toggle="event.event_registrations_open and 'modal' or None"
-                                t-attf-data-bs-target="#modal_{{'slot' if event.is_multi_slots else 'ticket'}}_registration">
+                        <div t-foreach="tickets" t-as="ticket" t-attf-class="col-12 col-md-6 {{'col-lg-3' if len(tickets) &gt;= 4 else 'col-lg-4'}}">
+                            <!-- Zustand: active = jetzt buchbar, done = vorbei/ausverkauft, soon = kommt noch -->
+                            <t t-set="th_done" t-value="ticket.is_expired or ticket.is_sold_out"/>
+                            <t t-set="th_active" t-value="ticket.sale_available and event.event_registrations_open"/>
+                            <!-- Nur die aktuell buchbare Karte öffnet das Ticket-Popup -->
+                            <div t-attf-class="th_ticket_card h-100 d-flex flex-column p-4 {{'th_ticket_active' if th_active else ('th_ticket_done' if th_done else 'th_ticket_soon_card')}}"
+                                t-att-role="th_active and 'button' or None"
+                                t-att-data-bs-toggle="th_active and 'modal' or None"
+                                t-att-data-bs-target="th_active and ('#modal_%s_registration' % ('slot' if event.is_multi_slots else 'ticket')) or None">
                                 <h3 t-field="ticket.name" class="h4"/>
                                 <!-- Preis brutto inkl. Zusatzpaket (VIP: Ticket + Package) -->
                                 <div class="th_ticket_price my-3">
@@ -98,10 +102,22 @@
                                         <li t-foreach="[l.strip() for l in th_package.description_sale.splitlines() if l.strip()]" t-as="perk" t-out="perk"/>
                                     </ul>
                                 </t>
-                                <p t-if="ticket.description" t-field="ticket.description" class="text-muted small flex-grow-1"/>
+                                <p t-if="ticket.description" t-field="ticket.description" class="th_ticket_desc small flex-grow-1"/>
                                 <div t-else="" class="flex-grow-1"/>
-                                <div t-if="ticket.seats_limited and not ticket.seats_available" class="alert alert-danger py-1 small mb-0 mt-3">
-                                    Ausverkauft
+                                <div class="th_ticket_state mt-3">
+                                    <t t-if="th_done">
+                                        <span t-if="ticket.is_sold_out and not ticket.is_expired">Ausverkauft</span>
+                                        <span t-else="">Vorbei</span>
+                                    </t>
+                                    <t t-elif="th_active">Jetzt erhältlich</t>
+                                    <t t-elif="ticket.start_sale_datetime and not ticket.is_launched">
+                                        ab <t t-out="ticket.start_sale_datetime" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'dd.MM.'}"/>
+                                    </t>
+                                    <t t-elif="ticket.havoc_phase_waiting">folgt nach <t t-out="ticket.havoc_previous_phase_id.name"/></t>
+                                    <t t-else="">Bald erhältlich</t>
+                                </div>
+                                <div t-if="th_active and ticket.end_sale_datetime" class="th_ticket_until small mt-1">
+                                    nur bis <t t-out="ticket.end_sale_datetime" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'dd.MM.yyyy'}"/>
                                 </div>
                             </div>
                         </div>

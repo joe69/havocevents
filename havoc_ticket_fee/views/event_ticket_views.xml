@@ -10,6 +10,7 @@
             <field name="price" position="after">
                 <field name="havoc_package_product_id" optional="show"
                        context="{'default_type': 'service', 'default_is_published': False}"/>
+                <field name="havoc_previous_phase_id" optional="show" options="{'no_create': True}"/>
             </field>
         </field>
     </record>
@@ -22,6 +23,7 @@
             <field name="price" position="after">
                 <field name="havoc_package_product_id"
                        context="{'default_type': 'service', 'default_is_published': False}"/>
+                <field name="havoc_previous_phase_id" options="{'no_create': True}"/>
             </field>
         </field>
     </record>
