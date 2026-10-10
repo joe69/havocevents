@@ -50,4 +50,11 @@
         </xpath>
     </template>
 
+    <!-- Fußnote zum VIP-Package (All you can Drink*) -->
+    <template id="footer_fair_use_note" inherit_id="website.layout" name="Footer Fair-Use-Hinweis">
+        <xpath expr="//footer//span[hasclass('o_footer_copyright_name')]" position="after">
+            <span class="th_footer_note d-block small mt-1">* All you can Drink im VIP-Package auf Fair-Use-Basis: 3 Getränke pro Stunde.</span>
+        </xpath>
+    </template>
+
 </odoo>

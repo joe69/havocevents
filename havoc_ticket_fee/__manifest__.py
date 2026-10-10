@@ -15,6 +15,8 @@
         'data/product_data.xml',
         'views/res_config_settings_views.xml',
         'views/event_ticket_views.xml',
+        'views/event_question_views.xml',
+        'views/website_event_templates.xml',
         'report/ticket_report_templates.xml',
     ],
 }

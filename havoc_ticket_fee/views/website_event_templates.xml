@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Teilnehmerformular: Fragen mit "Nur für Tickets" nur bei diesen Tickets anzeigen -->
+    <template id="registration_attendee_details_havoc_ticket_questions" inherit_id="website_event.registration_attendee_details">
+        <xpath expr="//t[@t-foreach='event.specific_question_ids']" position="attributes">
+            <attribute name="t-foreach">event.specific_question_ids.filtered(lambda q: not q.havoc_event_ticket_ids or int(ticket['id']) in q.havoc_event_ticket_ids.ids)</attribute>
+        </xpath>
+    </template>
+
+</odoo>

@@ -134,6 +134,14 @@ header#top {
         .th_day_time {
             color: #a89f8c;
         }
+
+        .th_day_lineup {
+            color: #c9a227;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            font-size: .9rem;
+            font-weight: 600;
+        }
     }
 }
 
@@ -185,6 +193,18 @@ header#top {
         text-transform: uppercase;
         letter-spacing: .05em;
         font-weight: 600;
+    }
+
+    .th_ticket_perks li {
+        color: #f0e9d8;
+        padding: .15rem 0;
+
+        &::before {
+            content: '\2713';
+            color: #c9a227;
+            font-weight: 700;
+            margin-right: .5rem;
+        }
     }
 }
 
@@ -605,4 +625,9 @@ body {
     .btn-close {
         filter: invert(1);
     }
+}
+
+// Fußnote im Footer (Fair Use VIP)
+.th_footer_note {
+    color: #a89f8c;
 }

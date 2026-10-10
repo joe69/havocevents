@@ -49,7 +49,8 @@
                                 <div class="th_day_card p-4 h-100">
                                     <h3 class="h4 mb-2">Samstag, 23.01.2027 :: HAVOC Crew + Gäste</h3>
                                     <p class="th_day_genre mb-1">Hardstyle &amp; Hardcore Classics</p>
-                                    <p class="th_day_time mb-0">21:00 &#8211; 06:00 Uhr &#8226; Dom im Berg</p>
+                                    <p class="th_day_time mb-2">21:00 &#8211; 06:00 Uhr &#8226; Dom im Berg</p>
+                                    <p class="th_day_lineup mb-0">Lineup wird noch released</p>
                                 </div>
                             </div>
                         </div>
@@ -87,9 +88,16 @@
                                     </t>
                                     <t t-else="">Gratis</t>
                                 </div>
-                                <p t-if="ticket.havoc_package_product_id" class="th_ticket_package small mb-2">
-                                    inkl. <t t-out="ticket.havoc_package_product_id.sudo().display_name"/>
-                                </p>
+                                <t t-if="ticket.havoc_package_product_id">
+                                    <t t-set="th_package" t-value="ticket.havoc_package_product_id.sudo()"/>
+                                    <p class="th_ticket_package small mb-2">
+                                        inkl. <t t-out="th_package.display_name"/>
+                                    </p>
+                                    <!-- Paketinhalt = Verkaufsbeschreibung des Paketprodukts, eine Zeile pro Punkt -->
+                                    <ul t-if="th_package.description_sale" class="th_ticket_perks list-unstyled mb-3">
+                                        <li t-foreach="[l.strip() for l in th_package.description_sale.splitlines() if l.strip()]" t-as="perk" t-out="perk"/>
+                                    </ul>
+                                </t>
                                 <p t-if="ticket.description" t-field="ticket.description" class="text-muted small flex-grow-1"/>
                                 <div t-else="" class="flex-grow-1"/>
                                 <div t-if="ticket.seats_limited and not ticket.seats_available" class="alert alert-danger py-1 small mb-0 mt-3">
