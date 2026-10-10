@@ -68,9 +68,9 @@
                     <div t-if="tickets" class="text-center">
                         <div class="oe_structure" id="oe_structure_theme_havoc_ticket_note">
                             <p class="th_ticket_note mx-auto mb-5">
-                                <strong>Die Tickets sind stark limitiert &#8211; der Dom im Berg hat nur eine Arena!</strong><br/>
-                                Sichere dir dein Ticket so schnell wie möglich:
-                                Ausverkauft ist ausverkauft.
+                                <strong>Je früher, desto günstiger!</strong><br/>
+                                Early ist stark limitiert, danach steigt der Preis mit Normal und Late.
+                                Sichere dir deinen Platz in der Arena &#8211; ausverkauft ist ausverkauft.
                             </p>
                         </div>
                     </div>
