@@ -61,6 +61,13 @@ class TestHavocVipPackage(TestWebsiteEventSaleCommon):
         self.assertEqual(package.product_uom_qty, 1)
         self.assertFalse(package._is_sellable())
 
+        # Paketpreis geändert -> Paketzeile übernimmt beim nächsten Abgleich den neuen Preis
+        self.package.lst_price = 70.0
+        order._cart_update_line_quantity(ticket.id, 1)
+        ticket, package, fee = self._lines(order)
+        self.assertAlmostEqual(package.price_total, 70.0)
+        self.assertAlmostEqual(fee.price_total, 5.5, msg='5 % auf 40 + 70')
+
         # Ticket entfernen -> Paket und Gebühr weg
         order._cart_update_line_quantity(ticket.id, 0)
         self.assertFalse(order.order_line)

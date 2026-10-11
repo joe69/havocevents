@@ -67,6 +67,8 @@ class SaleOrder(models.Model):
             if line and line.product_id == product:
                 if line.product_uom_qty != ticket_line.product_uom_qty:
                     line.product_uom_qty = ticket_line.product_uom_qty
+                # Paketpreis immer aus dem aktuellen Produktpreis (Preisänderung am Paket)
+                line.with_context(force_price_recomputation=True)._compute_price_unit()
             else:
                 line.unlink()
                 line = self.env['sale.order.line'].sudo().create({

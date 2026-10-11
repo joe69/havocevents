@@ -62,28 +62,25 @@
             <section id="tickets" class="th_tickets py-5">
                 <div class="container">
                     <h2 class="text-center mb-5">Tickets</h2>
-                    <!-- Aktive/kommende Tickets + vergangene Verkaufsphasen (damit Early/Normal/Late als Kette sichtbar bleiben) -->
-                    <t t-set="tickets" t-value="event.event_ticket_ids.filtered(lambda t: not t.is_expired or t in event.event_ticket_ids.havoc_previous_phase_id)"/>
+                    <!-- Nur aktuell buchbare Tickets zeigen; kommende Verkaufsphasen (Normal, Late)
+                         erscheinen automatisch, sobald sie starten -->
+                    <t t-set="tickets" t-value="event.event_ticket_ids.filtered('sale_available') if event.event_registrations_open else event.event_ticket_ids.browse()"/>
                     <!-- Hinweis über den Ticketkarten -->
                     <div t-if="tickets" class="text-center">
                         <div class="oe_structure" id="oe_structure_theme_havoc_ticket_note">
                             <p class="th_ticket_note mx-auto mb-5">
                                 <strong>Je früher, desto günstiger!</strong><br/>
-                                Early ist stark limitiert, danach steigt der Preis mit Normal und Late.
+                                Mit jeder Verkaufsphase steigt der Preis.
                                 Sichere dir deinen Platz in der Arena &#8211; ausverkauft ist ausverkauft.
                             </p>
                         </div>
                     </div>
                     <div t-if="tickets" class="row justify-content-center g-4 mb-4">
                         <div t-foreach="tickets" t-as="ticket" t-attf-class="col-12 col-md-6 {{'col-lg-3' if len(tickets) &gt;= 4 else 'col-lg-4'}}">
-                            <!-- Zustand: active = jetzt buchbar, done = vorbei/ausverkauft, soon = kommt noch -->
-                            <t t-set="th_done" t-value="ticket.is_expired or ticket.is_sold_out"/>
-                            <t t-set="th_active" t-value="ticket.sale_available and event.event_registrations_open"/>
-                            <!-- Nur die aktuell buchbare Karte öffnet das Ticket-Popup -->
-                            <div t-attf-class="th_ticket_card h-100 d-flex flex-column p-4 {{'th_ticket_active' if th_active else ('th_ticket_done' if th_done else 'th_ticket_soon_card')}}"
-                                t-att-role="th_active and 'button' or None"
-                                t-att-data-bs-toggle="th_active and 'modal' or None"
-                                t-att-data-bs-target="th_active and ('#modal_%s_registration' % ('slot' if event.is_multi_slots else 'ticket')) or None">
+                            <!-- Karte anklicken öffnet das Ticket-Popup (Mengenauswahl) -->
+                            <div class="th_ticket_card th_ticket_active h-100 d-flex flex-column p-4"
+                                role="button" data-bs-toggle="modal"
+                                t-attf-data-bs-target="#modal_{{'slot' if event.is_multi_slots else 'ticket'}}_registration">
                                 <h3 t-field="ticket.name" class="h4"/>
                                 <!-- Preis brutto inkl. Zusatzpaket (VIP: Ticket + Package) -->
                                 <div class="th_ticket_price my-3">
@@ -104,33 +101,23 @@
                                 </t>
                                 <p t-if="ticket.description" t-field="ticket.description" class="th_ticket_desc small flex-grow-1"/>
                                 <div t-else="" class="flex-grow-1"/>
-                                <div class="th_ticket_state mt-3">
-                                    <t t-if="th_done">
-                                        <span t-if="ticket.is_sold_out and not ticket.is_expired">Ausverkauft</span>
-                                        <span t-else="">Vorbei</span>
-                                    </t>
-                                    <t t-elif="th_active">Jetzt erhältlich</t>
-                                    <t t-elif="ticket.start_sale_datetime and not ticket.is_launched">
-                                        ab <t t-out="ticket.start_sale_datetime" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'dd.MM.'}"/>
-                                    </t>
-                                    <t t-elif="ticket.havoc_phase_waiting">folgt nach <t t-out="ticket.havoc_previous_phase_id.name"/></t>
-                                    <t t-else="">Bald erhältlich</t>
-                                </div>
-                                <div t-if="th_active and ticket.end_sale_datetime" class="th_ticket_until small mt-1">
+                                <div class="th_ticket_state mt-3">Solange der Vorrat reicht</div>
+                                <div t-if="ticket.end_sale_datetime" class="th_ticket_until small mt-1">
                                     nur bis <t t-out="ticket.end_sale_datetime" t-options="{'widget': 'datetime', 'tz_name': event.date_tz, 'format': 'dd.MM.yyyy'}"/>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Noch keine Tickets angelegt: Ankündigung statt "Anmeldung geschlossen" -->
-                    <div t-if="not event.event_ticket_ids" class="text-center">
+                    <!-- Noch kein Ticket buchbar (keine angelegt oder Verkauf noch nicht gestartet):
+                         Ankündigung statt "Anmeldung geschlossen" -->
+                    <div t-elif="not event.event_ticket_ids or event.event_ticket_ids.filtered(lambda t: not t.is_expired and not t.is_sold_out)" class="text-center">
                         <div class="th_ticket_soon mx-auto p-4">
                             <p class="th_ticket_soon_title mb-1">Tickets in Kürze erhältlich</p>
                             <p class="mb-0">Der Vorverkauf startet bald &#8211; hier auf havoc.events.</p>
                         </div>
                     </div>
-                    <!-- Statusmeldung (Ausverkauft / Verkauf startet am …), falls Verkauf zu -->
-                    <div t-elif="not event.event_registrations_open" class="text-center">
+                    <!-- Statusmeldung (Ausverkauft / Verkauf beendet) -->
+                    <div t-elif="not tickets" class="text-center">
                         <t t-call="website_event.registration_template"/>
                     </div>
                 </div>
