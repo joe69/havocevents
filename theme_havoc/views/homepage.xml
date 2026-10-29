@@ -48,7 +48,8 @@
                                     <h3 class="h4 mb-2">Samstag, 23.01.2027</h3>
                                     <p class="th_day_genre mb-1">Hardcore Classics ALL NIGHT LONG</p>
                                     <p class="th_day_time mb-2">21:00 &#8211; 06:00 Uhr &#8226; Dom im Berg</p>
-                                    <p class="th_day_lineup mb-0">Lineup: COMING SOON</p>
+                                    <!-- Lineup wie auf Pauls Flyer (Hero-Banner) -->
+                                    <p class="th_day_lineup mb-0">Lineup: Ruffneck pres. Juggernaut &#8226; Marc Acardipane &#8226; Dione &#8226; The Destroyer &#8226; SRB &#8226; Artheist vs Poley Tight &#8226; Sonic Warfare &#8226; Agonize &#8226; Mark Enigma &#8226; Rick G</p>
                                 </div>
                             </div>
                         </div>
