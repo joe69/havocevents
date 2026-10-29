@@ -10,10 +10,11 @@
             <!-- 1. HERO / Banner: fixes Bild aus dem Modul (im Website-Editor austauschbar) -->
             <section class="th_hero">
                 <div class="oe_structure" id="oe_structure_theme_havoc_banner">
-                    <!-- Desktop: breites, flaches Banner über die volle Breite; Handy: hoher Ausschnitt -->
+                    <!-- Desktop: breites, flaches Banner über die volle Breite; Handy: Helm über Logo/Lineup.
+                         Neues Bild immer unter neuem Dateinamen ablegen (Cloudflare cacht /static/ 7 Tage) -->
                     <picture>
-                        <source media="(max-width: 767px)" srcset="/theme_havoc/static/src/img/banner_colosseum_mobile.jpg"/>
-                        <img src="/theme_havoc/static/src/img/banner_colosseum.jpg" class="th_hero_img" alt="HAVOC Classic Colosseum – 23.01.2027 – Dom im Berg Graz"/>
+                        <source media="(max-width: 767px)" srcset="/theme_havoc/static/src/img/banner_colosseum_lineup_mobile.jpg"/>
+                        <img src="/theme_havoc/static/src/img/banner_colosseum_lineup.jpg" class="th_hero_img" alt="HAVOC Classic Colosseum – 23.01.2027 – Dom im Berg Graz – Lineup: Ruffneck pres. Juggernaut, Marc Acardipane, Dione, The Destroyer, SRB, Artheist vs Poley Tight, Sonic Warfare, Agonize, Mark Enigma, Rick G"/>
                     </picture>
                 </div>
             </section>
